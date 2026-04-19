@@ -9,10 +9,10 @@ import sys
 import time
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QTimer
-from .app import create_app
-from .gui.splash_screen import SplashScreen
-from .gui.main_window import MainWindow
-from .gui.styles.theme_arco import apply_theme
+from axaltyx.app import create_app
+from axaltyx.gui.splash_screen import SplashScreen
+from axaltyx.gui.main_window import MainWindow
+from axaltyx.gui.styles.theme_arco import apply_theme
 from axaltyx.i18n import I18nManager
 
 __version__ = "1.0.0"
