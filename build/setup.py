@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+AxaltyX 安装配置
+"""
+
+from setuptools import setup, find_packages
+
+setup(
+    name="axaltyx",
+    version="1.0.0",
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=[
+        "PyQt6>=6.5.0",
+        "numpy>=1.24.0",
+        "pandas>=2.0.0",
+        "scipy>=1.10.0",
+        "statsmodels>=0.14.0",
+        "scikit-learn>=1.3.0",
+        "matplotlib>=3.7.0",
+        "seaborn>=0.12.0",
+        "plotly>=5.15.0",
+        "networkx>=3.1.0",
+        "lifelines>=0.27.0",
+        "pymc>=5.0.0",
+        "openpyxl>=3.1.0",
+        "pyreadstat>=1.2.0",
+        "nltk>=3.8.0",
+        "jieba>=0.42.1",
+        "wordcloud>=1.9.0",
+        "pyqtgraph>=0.13.0",
+        "pyinstaller>=6.0.0",
+    ],
+    entry_points={
+        "console_scripts": [
+            "axaltyx=axaltyx.main:main",
+        ],
+    },
+    author="TBJ114",
+    author_email="",
+    description="个人学术科研专用统计软件",
+    long_description=open("../README.md").read(),
+    long_description_content_type="text/markdown",
+    url="",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: Windows",
+    ],
+    python_requires=">=3.8",
+)

@@ -1,0 +1,20 @@
+{
+  "app_name": "AxaltyX",
+  "version": "1.0.0",
+  "copyright": "Copyright TBJ114. All rights reserved.",
+  "splash_loading": "正在加载...",
+  "splash_init": "正在初始化...",
+  "splash_ready": "准备就绪",
+  "untitled": "未命名",
+  "file_filter": "AxaltyX 文件 (*.axl);;CSV 文件 (*.csv);;Excel 文件 (*.xlsx);;SPSS 文件 (*.sav);;所有文件 (*.*)",
+  "confirm_save": "文件已修改，是否保存?",
+  "confirm_close": "确定要关闭当前文件吗?",
+  "save_success": "保存成功",
+  "save_failed": "保存失败: {error}",
+  "open_success": "已加载 {rows} 行 {cols} 列数据",
+  "open_failed": "打开失败: {error}",
+  "no_data": "当前没有打开的数据文件",
+  "analysis_running": "正在执行分析...",
+  "analysis_complete": "分析完成",
+  "analysis_failed": "分析失败: {error}"
+}

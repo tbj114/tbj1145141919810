@@ -1,0 +1,46 @@
+{
+  "common": {
+    "ok": "确定",
+    "cancel": "取消",
+    "apply": "应用",
+    "paste": "粘贴",
+    "reset": "重置",
+    "help": "帮助",
+    "close": "关闭",
+    "variables": "变量",
+    "analysis_variables": "分析变量",
+    "available_variables": "可用变量",
+    "options": "选项",
+    "statistics": "统计量",
+    "charts": "图表",
+    "format": "格式",
+    "save": "保存",
+    "export": "导出",
+    "select_all": "全选",
+    "deselect_all": "取消全选"
+  },
+  "descriptives": {
+    "title": "描述性统计",
+    "variables_label": "变量",
+    "statistics_dialog_title": "描述性统计: 统计量",
+    "mean": "均值",
+    "std_dev": "标准差",
+    "variance": "方差",
+    "range": "全距",
+    "minimum": "最小值",
+    "maximum": "最大值",
+    "kurtosis": "峰度",
+    "skewness": "偏度",
+    "sum": "总和",
+    "stderr": "标准误"
+  },
+  "ttest_one": {
+    "title": "单样本 T 检验",
+    "test_variable": "检验变量",
+    "test_value": "检验值",
+    "confidence_interval": "置信区间百分比",
+    "missing_values": "缺失值",
+    "exclude_analysis": "按分析排除个案",
+    "exclude_listwise": "按列表排除个案"
+  }
+}

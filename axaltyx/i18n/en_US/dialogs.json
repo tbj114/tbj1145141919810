@@ -1,0 +1,46 @@
+{
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "paste": "Paste",
+    "reset": "Reset",
+    "help": "Help",
+    "close": "Close",
+    "variables": "Variables",
+    "analysis_variables": "Analysis Variables",
+    "available_variables": "Available Variables",
+    "options": "Options",
+    "statistics": "Statistics",
+    "charts": "Charts",
+    "format": "Format",
+    "save": "Save",
+    "export": "Export",
+    "select_all": "Select All",
+    "deselect_all": "Deselect All"
+  },
+  "descriptives": {
+    "title": "Descriptives",
+    "variables_label": "Variables",
+    "statistics_dialog_title": "Descriptives: Statistics",
+    "mean": "Mean",
+    "std_dev": "Std. Deviation",
+    "variance": "Variance",
+    "range": "Range",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "kurtosis": "Kurtosis",
+    "skewness": "Skewness",
+    "sum": "Sum",
+    "stderr": "Std. Error"
+  },
+  "ttest_one": {
+    "title": "One-Sample T Test",
+    "test_variable": "Test Variable(s)",
+    "test_value": "Test Value",
+    "confidence_interval": "Confidence Interval Percentage",
+    "missing_values": "Missing Values",
+    "exclude_analysis": "Exclude cases analysis by analysis",
+    "exclude_listwise": "Exclude cases listwise"
+  }
+}
