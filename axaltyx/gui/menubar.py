@@ -4,13 +4,40 @@ from axaltyx.i18n import I18nManager
 
 
 class MenuBar(QMenuBar):
+    # 文件菜单信号
     new_file = pyqtSignal()
     open_file = pyqtSignal()
     save_file = pyqtSignal()
+    save_as = pyqtSignal()
+    close_file = pyqtSignal()
+    exit_app = pyqtSignal()
+    
+    # 编辑菜单信号
     undo = pyqtSignal()
     redo = pyqtSignal()
+    cut = pyqtSignal()
     copy = pyqtSignal()
     paste = pyqtSignal()
+    find = pyqtSignal()
+    replace = pyqtSignal()
+    
+    # 数据菜单信号
+    define_variables = pyqtSignal()
+    sort_cases = pyqtSignal()
+    select_cases = pyqtSignal()
+    weight_cases = pyqtSignal()
+    transpose = pyqtSignal()
+    restructure = pyqtSignal()
+    merge_files = pyqtSignal()
+    split_file = pyqtSignal()
+    
+    # 视图菜单信号
+    toggle_panel = pyqtSignal(str)  # 面板名称作为参数
+    
+    # 帮助菜单信号
+    show_about = pyqtSignal()
+    
+    # 运行信号
     run = pyqtSignal()
 
     def __init__(self, parent: QWidget = None):
@@ -41,10 +68,16 @@ class MenuBar(QMenuBar):
         save_action = file_menu.addAction(self.i18n.t("menu.file_save"))
         save_action.triggered.connect(self.save_file.emit)
         
+        save_as_action = file_menu.addAction(self.i18n.t("menu.file_save_as"))
+        save_as_action.triggered.connect(self.save_as.emit)
+        
         file_menu.addSeparator()
-        file_menu.addAction(self.i18n.t("menu.file_close"))
+        close_action = file_menu.addAction(self.i18n.t("menu.file_close"))
+        close_action.triggered.connect(self.close_file.emit)
+        
         file_menu.addSeparator()
-        file_menu.addAction(self.i18n.t("menu.file_exit"))
+        exit_action = file_menu.addAction(self.i18n.t("menu.file_exit"))
+        exit_action.triggered.connect(self.exit_app.emit)
 
     def _create_edit_menu(self):
         edit_menu = self.addMenu(self.i18n.t("menu.edit"))
@@ -55,7 +88,9 @@ class MenuBar(QMenuBar):
         redo_action.triggered.connect(self.redo.emit)
         
         edit_menu.addSeparator()
-        edit_menu.addAction(self.i18n.t("menu.edit_cut"))
+        cut_action = edit_menu.addAction(self.i18n.t("menu.edit_cut"))
+        cut_action.triggered.connect(self.cut.emit)
+        
         copy_action = edit_menu.addAction(self.i18n.t("menu.edit_copy"))
         copy_action.triggered.connect(self.copy.emit)
         
@@ -63,29 +98,52 @@ class MenuBar(QMenuBar):
         paste_action.triggered.connect(self.paste.emit)
         
         edit_menu.addSeparator()
-        edit_menu.addAction(self.i18n.t("menu.edit_clear"))
-        edit_menu.addSeparator()
-        edit_menu.addAction(self.i18n.t("menu.edit_find"))
-        edit_menu.addAction(self.i18n.t("menu.edit_replace"))
+        find_action = edit_menu.addAction(self.i18n.t("menu.edit_find"))
+        find_action.triggered.connect(self.find.emit)
+        
+        replace_action = edit_menu.addAction(self.i18n.t("menu.edit_replace"))
+        replace_action.triggered.connect(self.replace.emit)
 
     def _create_view_menu(self):
         view_menu = self.addMenu(self.i18n.t("menu.view"))
-        view_menu.addAction(self.i18n.t("menu.view_data_editor"))
-        view_menu.addAction(self.i18n.t("menu.view_variable_view"))
-        view_menu.addAction(self.i18n.t("menu.view_output"))
-        view_menu.addAction(self.i18n.t("menu.view_syntax"))
+        data_editor_action = view_menu.addAction(self.i18n.t("menu.view_data_editor"))
+        data_editor_action.triggered.connect(lambda: self.toggle_panel.emit("data_editor"))
+        
+        variable_view_action = view_menu.addAction(self.i18n.t("menu.view_variable_view"))
+        variable_view_action.triggered.connect(lambda: self.toggle_panel.emit("variable_view"))
+        
+        output_action = view_menu.addAction(self.i18n.t("menu.view_output"))
+        output_action.triggered.connect(lambda: self.toggle_panel.emit("output"))
+        
+        syntax_action = view_menu.addAction(self.i18n.t("menu.view_syntax"))
+        syntax_action.triggered.connect(lambda: self.toggle_panel.emit("syntax"))
 
     def _create_data_menu(self):
         data_menu = self.addMenu(self.i18n.t("menu.data"))
-        data_menu.addAction(self.i18n.t("menu.data_define_variables"))
-        data_menu.addAction(self.i18n.t("menu.data_sort_cases"))
-        data_menu.addAction(self.i18n.t("menu.data_select_cases"))
-        data_menu.addAction(self.i18n.t("menu.data_weight_cases"))
+        define_action = data_menu.addAction(self.i18n.t("menu.data_define_variables"))
+        define_action.triggered.connect(self.define_variables.emit)
+        
+        sort_action = data_menu.addAction(self.i18n.t("menu.data_sort_cases"))
+        sort_action.triggered.connect(self.sort_cases.emit)
+        
+        select_action = data_menu.addAction(self.i18n.t("menu.data_select_cases"))
+        select_action.triggered.connect(self.select_cases.emit)
+        
+        weight_action = data_menu.addAction(self.i18n.t("menu.data_weight_cases"))
+        weight_action.triggered.connect(self.weight_cases.emit)
+        
         data_menu.addSeparator()
-        data_menu.addAction(self.i18n.t("menu.data_transpose"))
-        data_menu.addAction(self.i18n.t("menu.data_restructure"))
-        data_menu.addAction(self.i18n.t("menu.data_merge_files"))
-        data_menu.addAction(self.i18n.t("menu.data_split_file"))
+        transpose_action = data_menu.addAction(self.i18n.t("menu.data_transpose"))
+        transpose_action.triggered.connect(self.transpose.emit)
+        
+        restructure_action = data_menu.addAction(self.i18n.t("menu.data_restructure"))
+        restructure_action.triggered.connect(self.restructure.emit)
+        
+        merge_action = data_menu.addAction(self.i18n.t("menu.data_merge_files"))
+        merge_action.triggered.connect(self.merge_files.emit)
+        
+        split_action = data_menu.addAction(self.i18n.t("menu.data_split_file"))
+        split_action.triggered.connect(self.split_file.emit)
 
     def _create_transform_menu(self):
         self.addMenu(self.i18n.t("menu.transform"))
@@ -109,4 +167,5 @@ class MenuBar(QMenuBar):
         help_menu = self.addMenu(self.i18n.t("menu.help"))
         help_menu.addAction(self.i18n.t("menu.help_documentation"))
         help_menu.addSeparator()
-        help_menu.addAction(self.i18n.t("menu.help_about"))
+        about_action = help_menu.addAction(self.i18n.t("menu.help_about"))
+        about_action.triggered.connect(self.show_about.emit)

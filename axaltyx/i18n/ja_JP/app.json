@@ -1,5 +1,6 @@
 {
   "app_name": "AxaltyX",
+  "app_description": "AxaltyXは、豊富なデータ分析と可視化機能を提供する強力な統計分析ソフトウェアです。",
   "version": "1.0.0",
   "copyright": "Copyright TBJ114. All rights reserved.",
   "splash_loading": "読み込み中...",
