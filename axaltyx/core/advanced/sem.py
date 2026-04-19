@@ -71,9 +71,15 @@ class SEM:
     @staticmethod
     def _validate_model_spec(latent_variables, measurement_model, structural_model, n_variables):
         """验证模型规格"""
+        # 确保 latent_variables 是可迭代的
+        if isinstance(latent_variables, dict):
+            latent_vars_set = set(latent_variables.keys())
+        else:
+            latent_vars_set = set(latent_variables)
+        
         # 检查测量模型
         for latent_var, indicators in measurement_model.items():
-            if latent_var not in latent_variables:
+            if latent_var not in latent_vars_set:
                 raise ValueError(f"潜变量 {latent_var} 在 measurement_model 中但不在 latent_variables 中")
             for indicator in indicators:
                 if indicator >= n_variables:
@@ -81,10 +87,10 @@ class SEM:
         
         # 检查结构模型
         for endogenous, exogenous in structural_model.items():
-            if endogenous not in latent_variables:
+            if endogenous not in latent_vars_set:
                 raise ValueError(f"内生变量 {endogenous} 在 structural_model 中但不在 latent_variables 中")
             for var in exogenous:
-                if var not in latent_variables:
+                if var not in latent_vars_set:
                     raise ValueError(f"外生变量 {var} 在 structural_model 中但不在 latent_variables 中")
 
     @staticmethod
@@ -133,8 +139,12 @@ class SEM:
             free_params += 1
         
         # 潜变量之间的协方差
-        latent_variables = list(model_spec.get('latent_variables', {}).keys())
-        n_latent = len(latent_variables)
+        latent_variables = model_spec.get('latent_variables', {})
+        if isinstance(latent_variables, dict):
+            latent_vars_list = list(latent_variables.keys())
+        else:
+            latent_vars_list = list(latent_variables)
+        n_latent = len(latent_vars_list)
         free_params += n_latent * (n_latent - 1) // 2
         
         # 计算自由度
