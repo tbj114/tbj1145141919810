@@ -1,0 +1,47 @@
+{
+  "common": {
+    "ok": "OK",
+    "cancel": "キャンセル",
+    "apply": "適用",
+    "paste": "貼り付け",
+    "reset": "リセット",
+    "help": "ヘルプ",
+    "close": "閉じる",
+    "variables": "変数",
+    "analysis_variables": "分析変数",
+    "available_variables": "利用可能な変数",
+    "options": "オプション",
+    "statistics": "統計量",
+    "charts": "グラフ",
+    "format": "フォーマット",
+    "save": "保存",
+    "export": "エクスポート",
+    "select_all": "すべて選択",
+    "deselect_all": "選択を解除"
+  },
+  "descriptives": {
+    "title": "記述統計",
+    "variables_label": "変数",
+    "statistics_dialog_title": "記述統計: 統計量",
+    "mean": "平均",
+    "std_dev": "標準偏差",
+    "variance": "分散",
+    "range": "範囲",
+    "minimum": "最小値",
+    "maximum": "最大値",
+    "kurtosis": "尖度",
+    "skewness": "歪度",
+    "stderr": "標準誤差",
+    "histogram": "ヒストグラム",
+    "stem_leaf": "茎と葉の図"
+  },
+  "ttest_one": {
+    "title": "1標本t検定",
+    "test_variable": "検定変数",
+    "test_value": "検定値",
+    "confidence_interval": "信頼区間の割合",
+    "missing_values": "欠損値",
+    "exclude_analysis": "分析によるケースの除外",
+    "exclude_listwise": "リストワイズによるケースの除外"
+  }
+}

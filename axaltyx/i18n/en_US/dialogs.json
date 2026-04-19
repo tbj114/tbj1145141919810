@@ -20,19 +20,20 @@
     "deselect_all": "Deselect All"
   },
   "descriptives": {
-    "title": "Descriptives",
+    "title": "Descriptive Statistics",
     "variables_label": "Variables",
-    "statistics_dialog_title": "Descriptives: Statistics",
+    "statistics_dialog_title": "Descriptive Statistics: Statistics",
     "mean": "Mean",
-    "std_dev": "Std. Deviation",
+    "std_dev": "Standard Deviation",
     "variance": "Variance",
     "range": "Range",
     "minimum": "Minimum",
     "maximum": "Maximum",
     "kurtosis": "Kurtosis",
     "skewness": "Skewness",
-    "sum": "Sum",
-    "stderr": "Std. Error"
+    "stderr": "Standard Error",
+    "histogram": "Histogram",
+    "stem_leaf": "Stem-and-Leaf Plot"
   },
   "ttest_one": {
     "title": "One-Sample T Test",

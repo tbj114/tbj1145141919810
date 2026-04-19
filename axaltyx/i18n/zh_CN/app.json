@@ -19,5 +19,36 @@
   "no_data": "当前没有打开的数据文件",
   "analysis_running": "正在执行分析...",
   "analysis_complete": "分析完成",
-  "analysis_failed": "分析失败: {error}"
+  "analysis_failed": "分析失败: {error}",
+  "chart_types": {
+    "bar": "柱状图",
+    "line": "折线图",
+    "scatter": "散点图",
+    "histogram": "直方图",
+    "boxplot": "箱线图",
+    "pie": "饼图",
+    "heatmap": "热力图",
+    "network": "网络图",
+    "sankey": "桑基图",
+    "wordcloud": "词云图",
+    "multi_panel": "多面板图"
+  },
+  "chart_editor": {
+    "title": "高级图表编辑器",
+    "control_panel": "编辑面板",
+    "chart_preview": "图表预览",
+    "chart_type": "图表类型:",
+    "data_input": "数据输入:",
+    "import_data": "导入数据",
+    "chart_params": "图表参数:",
+    "title_label": "标题:",
+    "xlabel": "X轴标签:",
+    "ylabel": "Y轴标签:",
+    "enable_interaction": "启用交互",
+    "multi_panel_settings": "多面板设置",
+    "rows": "行数:",
+    "cols": "列数:",
+    "draw_chart": "绘制图表",
+    "save_chart": "保存图表"
+  }
 }

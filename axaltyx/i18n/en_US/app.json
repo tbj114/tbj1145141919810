@@ -19,5 +19,36 @@
   "no_data": "No data file currently open",
   "analysis_running": "Running analysis...",
   "analysis_complete": "Analysis complete",
-  "analysis_failed": "Analysis failed: {error}"
+  "analysis_failed": "Analysis failed: {error}",
+  "chart_types": {
+    "bar": "Bar Chart",
+    "line": "Line Chart",
+    "scatter": "Scatter Plot",
+    "histogram": "Histogram",
+    "boxplot": "Box Plot",
+    "pie": "Pie Chart",
+    "heatmap": "Heatmap",
+    "network": "Network Plot",
+    "sankey": "Sankey Diagram",
+    "wordcloud": "Word Cloud",
+    "multi_panel": "Multi Panel Chart"
+  },
+  "chart_editor": {
+    "title": "Advanced Chart Editor",
+    "control_panel": "Control Panel",
+    "chart_preview": "Chart Preview",
+    "chart_type": "Chart Type:",
+    "data_input": "Data Input:",
+    "import_data": "Import Data",
+    "chart_params": "Chart Parameters:",
+    "title_label": "Title:",
+    "xlabel": "X-axis Label:",
+    "ylabel": "Y-axis Label:",
+    "enable_interaction": "Enable Interaction",
+    "multi_panel_settings": "Multi Panel Settings",
+    "rows": "Rows:",
+    "cols": "Columns:",
+    "draw_chart": "Draw Chart",
+    "save_chart": "Save Chart"
+  }
 }

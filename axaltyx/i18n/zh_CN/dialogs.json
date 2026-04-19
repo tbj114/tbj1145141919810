@@ -31,8 +31,9 @@
     "maximum": "最大值",
     "kurtosis": "峰度",
     "skewness": "偏度",
-    "sum": "总和",
-    "stderr": "标准误"
+    "stderr": "标准误",
+    "histogram": "直方图",
+    "stem_leaf": "茎叶图"
   },
   "ttest_one": {
     "title": "单样本 T 检验",

@@ -21,7 +21,7 @@ class I18nManager:
     def _load_translations(self):
         """加载翻译文件"""
         i18n_dir = os.path.dirname(os.path.abspath(__file__))
-        for lang in ["zh_CN", "en_US"]:
+        for lang in ["zh_CN", "en_US", "ja_JP"]:
             lang_dir = os.path.join(i18n_dir, lang)
             if os.path.exists(lang_dir):
                 self._cache[lang] = {}

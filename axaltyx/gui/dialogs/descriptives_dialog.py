@@ -156,11 +156,11 @@ class DescriptivesDialog(ArcoDialog):
         group_layout = QVBoxLayout()
         group_layout.setSpacing(10)
         
-        self.check_histogram = QCheckBox("直方图")
+        self.check_histogram = QCheckBox(self.i18n.t("dialogs.descriptives.histogram"))
         self.check_histogram.toggled.connect(self._update_chart_options)
         group_layout.addWidget(self.check_histogram)
         
-        self.check_stem_leaf = QCheckBox("茎叶图")
+        self.check_stem_leaf = QCheckBox(self.i18n.t("dialogs.descriptives.stem_leaf"))
         self.check_stem_leaf.toggled.connect(self._update_chart_options)
         group_layout.addWidget(self.check_stem_leaf)
         
