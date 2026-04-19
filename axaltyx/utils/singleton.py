@@ -6,16 +6,12 @@
 """
 
 
-class Singleton:
-    """单例装饰器"""
+class Singleton(type):
+    """单例元类"""
+    _instances = {}
     
-    def __init__(self, cls):
-        """初始化单例装饰器"""
-        self.cls = cls
-        self.instance = None
-    
-    def __call__(self, *args, **kwargs):
+    def __call__(cls, *args, **kwargs):
         """调用单例"""
-        if not self.instance:
-            self.instance = self.cls(*args, **kwargs)
-        return self.instance
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
