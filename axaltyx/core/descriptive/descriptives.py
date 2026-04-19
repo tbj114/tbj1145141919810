@@ -13,95 +13,109 @@ class DescriptiveStats:
     """描述性统计类"""
     
     @staticmethod
+    def _filter_data(data):
+        """过滤掉 None 和 NaN 值"""
+        return [x for x in data if x is not None and not np.isnan(x)]
+    
+    @staticmethod
     def calculate_mean(data):
         """计算均值"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        return np.mean(data)
+        return np.mean(filtered_data)
     
     @staticmethod
     def calculate_std_dev(data):
         """计算标准差"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        return np.std(data, ddof=1)
+        return np.std(filtered_data, ddof=1)
     
     @staticmethod
     def calculate_variance(data):
         """计算方差"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        return np.var(data, ddof=1)
+        return np.var(filtered_data, ddof=1)
     
     @staticmethod
     def calculate_range(data):
         """计算全距（极差）"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        return np.max(data) - np.min(data)
+        return np.max(filtered_data) - np.min(filtered_data)
     
     @staticmethod
     def calculate_min(data):
         """计算最小值"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        return np.min(data)
+        return np.min(filtered_data)
     
     @staticmethod
     def calculate_max(data):
         """计算最大值"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        return np.max(data)
+        return np.max(filtered_data)
     
     @staticmethod
     def calculate_kurtosis(data):
         """计算峰度"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        n = len(data)
+        n = len(filtered_data)
         if n < 4:
             return None
         
-        mean = np.mean(data)
-        std = np.std(data, ddof=1)
+        mean = np.mean(filtered_data)
+        std = np.std(filtered_data, ddof=1)
         
         if std == 0:
             return None
         
         # 计算峰度
-        kurtosis = sum(((x - mean) / std) ** 4 for x in data) * (n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))
+        kurtosis = sum(((x - mean) / std) ** 4 for x in filtered_data) * (n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))
         kurtosis -= 3 * (n - 1) ** 2 / ((n - 2) * (n - 3))
         return kurtosis
     
     @staticmethod
     def calculate_skewness(data):
         """计算偏度"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        n = len(data)
+        n = len(filtered_data)
         if n < 3:
             return None
         
-        mean = np.mean(data)
-        std = np.std(data, ddof=1)
+        mean = np.mean(filtered_data)
+        std = np.std(filtered_data, ddof=1)
         
         if std == 0:
             return None
         
         # 计算偏度
-        skewness = sum(((x - mean) / std) ** 3 for x in data) * n / ((n - 1) * (n - 2))
+        skewness = sum(((x - mean) / std) ** 3 for x in filtered_data) * n / ((n - 1) * (n - 2))
         return skewness
     
     @staticmethod
     def calculate_standard_error(data):
         """计算标准误"""
-        if not data:
+        filtered_data = DescriptiveStats._filter_data(data)
+        if not filtered_data:
             return None
-        n = len(data)
+        n = len(filtered_data)
         if n == 0:
             return None
-        std = np.std(data, ddof=1)
+        std = np.std(filtered_data, ddof=1)
         return std / math.sqrt(n)
     
     @staticmethod
