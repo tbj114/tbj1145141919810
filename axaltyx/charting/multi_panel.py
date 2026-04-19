@@ -12,18 +12,20 @@ import numpy as np
 class MultiPanel(ChartBase):
     """多面板图"""
     
-    def plot(self, data_list, rows, cols, **kwargs):
+    def plot(self, data_list, rows, cols, interactive=False, **kwargs):
         """绘制多面板图
         
         Args:
             data_list: 数据列表
             rows: 行数
             cols: 列数
+            interactive: 是否启用交互
             **kwargs: 其他参数
         """
         # 设置图表
         self.fig, self.axes = plt.subplots(rows, cols, figsize=self.figsize, dpi=self.dpi)
         self.axes = np.ravel(self.axes)
+        self.data_list = data_list
         
         # 绘制多面板图
         for i, (data, ax) in enumerate(zip(data_list, self.axes)):
@@ -44,4 +46,15 @@ class MultiPanel(ChartBase):
         # 应用标签
         self._apply_labels()
         
+        # 启用交互
+        if interactive:
+            self.fig.canvas.mpl_connect('button_press_event', self._on_click)
+        
         return self
+    
+    def _on_click(self, event):
+        """鼠标点击事件处理"""
+        for i, ax in enumerate(self.axes):
+            if event.inaxes == ax:
+                print(f'Clicked on panel {i+1}')
+                print(f'Data: {self.data_list[i]}')

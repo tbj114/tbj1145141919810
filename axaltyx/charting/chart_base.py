@@ -9,7 +9,7 @@ import numpy as np
 import os
 
 # 确保中文字符显示
-plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'WenQuanYi Micro Hei', 'Heiti TC', 'sans-serif']  # 用于显示中文
+plt.rcParams['font.sans-serif'] = ['SimHei', 'WenQuanYi Micro Hei', 'Heiti TC', 'DejaVu Sans', 'sans-serif']  # 用于显示中文
 plt.rcParams['axes.unicode_minus'] = False  # 用于显示负号
 
 
