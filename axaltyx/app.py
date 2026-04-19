@@ -15,3 +15,15 @@ class AxaltyXApp(QApplication):
         super().__init__(argv)
         self.setApplicationName("AxaltyX")
         self.setApplicationVersion("1.0.0")
+
+
+def create_app(argv):
+    """创建应用实例
+    
+    Args:
+        argv: 命令行参数
+        
+    Returns:
+        AxaltyXApp: 应用实例
+    """
+    return AxaltyXApp(argv)
