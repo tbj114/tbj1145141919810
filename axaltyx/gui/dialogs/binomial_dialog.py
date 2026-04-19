@@ -2,41 +2,41 @@
 # -*- coding: utf-8 -*-
 
 """
-独立样本T检验对话框实现
+二项检验对话框实现
 """
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, 
                              QPushButton, QCheckBox, QGroupBox,
                              QDialog, QTabWidget, QSpinBox, QDoubleSpinBox,
-                             QLabel, QComboBox, QSplitter)
-from PyQt6.QtCore import pyqtSignal, Qt
+                             QLabel, QComboBox, QRadioButton)
+from PyQt6.QtCore import pyqtSignal
 from axaltyx.gui.widgets.arco_dialog import ArcoDialog
 from axaltyx.gui.widgets.variable_selector import VariableSelector
 from axaltyx.i18n import I18nManager
 
 
-class TTestIndependentDialog(ArcoDialog):
-    """独立样本T检验对话框"""
+class BinomialDialog(ArcoDialog):
+    """二项检验对话框"""
     
     analysis_completed = pyqtSignal(dict)  # 分析完成信号
     
     def __init__(self, parent=None, dataset=None):
         """
-        初始化独立样本T检验对话框
+        初始化二项检验对话框
         
         Args:
             parent: 父窗口
             dataset: 数据集对象
         """
-        super().__init__(parent, "", 800, 550)
+        super().__init__(parent, "", 700, 450)
         self.i18n = I18nManager()
-        self.set_title("独立样本 T 检验")
+        self.set_title("二项检验")
         self.dataset = dataset
         
         # 初始化参数
-        self.confidence_interval = 95
+        self.test_proportion = 0.5
+        self.test_type = "two-tailed"  # two-tailed, one-tailed-lower, one-tailed-upper
         self.missing_values_option = "exclude_analysis"
-        self.equal_variances = True  # 假设方差齐性
         
         self.analysis_results = []
         
@@ -49,25 +49,11 @@ class TTestIndependentDialog(ArcoDialog):
         main_layout = QVBoxLayout()
         main_layout.setSpacing(20)
         
-        # 变量选择区域
-        variable_section = QWidget()
-        variable_layout = QHBoxLayout()
-        variable_layout.setSpacing(20)
-        
-        # 检验变量选择器
-        self.test_variable_selector = VariableSelector()
-        self.test_variable_selector.set_available_label("检验变量")
-        self.test_variable_selector.set_selected_label("分析变量")
-        variable_layout.addWidget(self.test_variable_selector, 2)
-        
-        # 分组变量选择器
-        self.group_variable_selector = VariableSelector()
-        self.group_variable_selector.set_available_label("分组变量")
-        self.group_variable_selector.set_selected_label("分组变量")
-        variable_layout.addWidget(self.group_variable_selector, 1)
-        
-        variable_section.setLayout(variable_layout)
-        main_layout.addWidget(variable_section, 2)
+        # 变量选择器
+        self.variable_selector = VariableSelector()
+        self.variable_selector.set_available_label("变量")
+        self.variable_selector.set_selected_label("检验变量")
+        main_layout.addWidget(self.variable_selector, 1)
         
         # 选项标签页
         options_tabs = QTabWidget()
@@ -77,46 +63,55 @@ class TTestIndependentDialog(ArcoDialog):
         test_layout = QVBoxLayout()
         test_layout.setSpacing(12)
         
-        # 置信区间设置
-        ci_group = QGroupBox("置信区间百分比")
-        ci_layout = QHBoxLayout()
-        ci_layout.setSpacing(10)
+        # 检验比例设置
+        proportion_group = QGroupBox("检验比例")
+        proportion_layout = QHBoxLayout()
+        proportion_layout.setSpacing(10)
         
-        ci_label = QLabel("置信区间:")
-        self.ci_spin = QSpinBox()
-        self.ci_spin.setRange(50, 99)
-        self.ci_spin.setValue(self.confidence_interval)
-        self.ci_spin.valueChanged.connect(self._update_confidence_interval)
-        ci_unit = QLabel("%")
+        proportion_label = QLabel("检验比例:")
+        self.proportion_spin = QDoubleSpinBox()
+        self.proportion_spin.setRange(0.001, 0.999)
+        self.proportion_spin.setDecimals(3)
+        self.proportion_spin.setValue(self.test_proportion)
+        self.proportion_spin.valueChanged.connect(self._update_test_proportion)
+        proportion_unit = QLabel("")
         
-        ci_layout.addWidget(ci_label)
-        ci_layout.addWidget(self.ci_spin)
-        ci_layout.addWidget(ci_unit)
-        ci_layout.addStretch()
-        ci_group.setLayout(ci_layout)
-        test_layout.addWidget(ci_group)
+        proportion_layout.addWidget(proportion_label)
+        proportion_layout.addWidget(self.proportion_spin)
+        proportion_layout.addWidget(proportion_unit)
+        proportion_layout.addStretch()
+        proportion_group.setLayout(proportion_layout)
+        test_layout.addWidget(proportion_group)
         
-        # 方差齐性检验选项
-        variance_group = QGroupBox("方差齐性")
-        variance_layout = QVBoxLayout()
+        # 检验类型选项
+        test_type_group = QGroupBox("检验类型")
+        test_type_layout = QVBoxLayout()
         
-        self.check_equal_variances = QCheckBox("假设方差齐性（Levene检验）")
-        self.check_equal_variances.setChecked(self.equal_variances)
-        self.check_equal_variances.toggled.connect(self._update_equal_variances)
-        variance_layout.addWidget(self.check_equal_variances)
-        variance_group.setLayout(variance_layout)
-        test_layout.addWidget(variance_group)
+        self.radio_two_tailed = QRadioButton("双侧检验")
+        self.radio_two_tailed.setChecked(True)
+        self.radio_two_tailed.toggled.connect(self._update_test_type)
+        test_type_layout.addWidget(self.radio_two_tailed)
+        
+        self.radio_one_tailed_lower = QRadioButton("单侧检验（小于）")
+        self.radio_one_tailed_lower.toggled.connect(self._update_test_type)
+        test_type_layout.addWidget(self.radio_one_tailed_lower)
+        
+        self.radio_one_tailed_upper = QRadioButton("单侧检验（大于）")
+        self.radio_one_tailed_upper.toggled.connect(self._update_test_type)
+        test_type_layout.addWidget(self.radio_one_tailed_upper)
+        
+        test_type_group.setLayout(test_type_layout)
+        test_layout.addWidget(test_type_group)
         
         # 缺失值处理选项
         missing_group = QGroupBox("缺失值")
         missing_layout = QVBoxLayout()
         
-        self.radio_exclude_analysis = QCheckBox("按分析排除个案")
+        self.radio_exclude_analysis = QRadioButton("按分析排除个案")
         self.radio_exclude_analysis.setChecked(True)
         self.radio_exclude_analysis.toggled.connect(self._update_missing_values_option)
         
-        self.radio_exclude_listwise = QCheckBox("按列表排除个案")
-        self.radio_exclude_listwise.setChecked(False)
+        self.radio_exclude_listwise = QRadioButton("按列表排除个案")
         self.radio_exclude_listwise.toggled.connect(self._update_missing_values_option)
         
         missing_layout.addWidget(self.radio_exclude_analysis)
@@ -138,13 +133,18 @@ class TTestIndependentDialog(ArcoDialog):
         else:
             self._set_demo_data()
     
-    def _update_confidence_interval(self, value):
-        """更新置信区间"""
-        self.confidence_interval = value
+    def _update_test_proportion(self, value):
+        """更新检验比例"""
+        self.test_proportion = value
     
-    def _update_equal_variances(self, value):
-        """更新方差齐性假设"""
-        self.equal_variances = value
+    def _update_test_type(self):
+        """更新检验类型"""
+        if self.radio_two_tailed.isChecked():
+            self.test_type = "two-tailed"
+        elif self.radio_one_tailed_lower.isChecked():
+            self.test_type = "one-tailed-lower"
+        elif self.radio_one_tailed_upper.isChecked():
+            self.test_type = "one-tailed-upper"
     
     def _update_missing_values_option(self):
         """更新缺失值处理选项"""
@@ -155,22 +155,14 @@ class TTestIndependentDialog(ArcoDialog):
     
     def _set_demo_data(self):
         """设置演示数据"""
-        # 检验变量
-        test_variables = [
-            ("VAR00001", "numeric"),
-            ("VAR00002", "numeric"),
-            ("VAR00003", "numeric"),
-            ("VAR00005", "numeric")
-        ]
-        self.test_variable_selector.set_variables(test_variables)
-        
-        # 分组变量
-        group_variables = [
-            ("GROUP", "numeric"),
+        demo_variables = [
             ("GENDER", "string"),
-            ("TREATMENT", "numeric")
+            ("GROUP", "numeric"),
+            ("TREATMENT", "numeric"),
+            ("OUTCOME", "string"),
+            ("RESPONSE", "numeric")
         ]
-        self.group_variable_selector.set_variables(group_variables)
+        self.variable_selector.set_variables(demo_variables)
     
     def _set_variables_from_dataset(self):
         """从数据集设置变量"""
@@ -288,13 +280,9 @@ class TTestIndependentDialog(ArcoDialog):
             self.ok_button.clicked.connect(self._on_ok)
             right_layout.addWidget(self.ok_button)
     
-    def get_selected_test_variables(self):
-        """获取选中的检验变量列表"""
-        return self.test_variable_selector.get_selected_variables()
-    
-    def get_selected_group_variables(self):
-        """获取选中的分组变量列表"""
-        return self.group_variable_selector.get_selected_variables()
+    def get_selected_variables(self):
+        """获取选中的变量列表"""
+        return self.variable_selector.get_selected_variables()
     
     def _on_paste(self):
         """粘贴按钮点击事件"""
@@ -304,19 +292,17 @@ class TTestIndependentDialog(ArcoDialog):
     def _on_reset(self):
         """重置按钮点击事件"""
         # 重置变量选择
-        self.test_variable_selector.clear()
-        self.group_variable_selector.clear()
+        self.variable_selector.clear()
         self._set_demo_data()
         
-        # 重置置信区间
-        self.ci_spin.setValue(95)
+        # 重置检验比例
+        self.proportion_spin.setValue(0.5)
         
-        # 重置方差齐性选项
-        self.check_equal_variances.setChecked(True)
+        # 重置检验类型
+        self.radio_two_tailed.setChecked(True)
         
         # 重置缺失值处理选项
         self.radio_exclude_analysis.setChecked(True)
-        self.radio_exclude_listwise.setChecked(False)
     
     def _on_ok(self):
         """确定按钮点击事件"""
@@ -325,10 +311,10 @@ class TTestIndependentDialog(ArcoDialog):
         
         # 发送分析完成信号
         result_data = {
-            'analysis_type': 'ttest_independent',
+            'analysis_type': 'binomial',
             'results': self.analysis_results,
-            'confidence_interval': self.confidence_interval,
-            'equal_variances': self.equal_variances,
+            'test_proportion': self.test_proportion,
+            'test_type': self.test_type,
             'missing_values_option': self.missing_values_option
         }
         self.analysis_completed.emit(result_data)
@@ -337,101 +323,73 @@ class TTestIndependentDialog(ArcoDialog):
         self.accept()
     
     def _perform_analysis(self):
-        """执行独立样本T检验分析"""
+        """执行二项检验分析"""
         # 获取选中的变量
-        test_variables = self.get_selected_test_variables()
-        group_variables = self.get_selected_group_variables()
+        selected_variables = self.get_selected_variables()
         
-        if not test_variables or not group_variables:
+        if not selected_variables:
             return
         
         self.analysis_results = []
         
-        # 对每个检验变量执行分析
-        for test_var_name, test_var_type in test_variables:
-            # 只对数值变量进行分析
-            if test_var_type != "numeric":
-                continue
+        # 对每个变量执行分析
+        for var_name, var_type in selected_variables:
+            # 获取变量数据（这里使用模拟数据）
+            variable_data = self._get_variable_data(var_name)
             
-            # 对每个分组变量执行分析
-            for group_var_name, group_var_type in group_variables:
-                # 获取变量数据（这里使用模拟数据）
-                test_data, group_data = self._get_variable_data(test_var_name, group_var_name)
+            if variable_data:
+                # 执行统计计算
+                from scipy import stats
+                import numpy as np
                 
-                if test_data and group_data:
-                    # 执行统计计算
-                    from scipy import stats
-                    import numpy as np
-                    
-                    # 分离两组数据
-                    group1 = [test_data[i] for i, g in enumerate(group_data) if g == 1]
-                    group2 = [test_data[i] for i, g in enumerate(group_data) if g == 2]
-                    
-                    if len(group1) > 0 and len(group2) > 0:
-                        # 执行T检验
-                        if self.equal_variances:
-                            t_stat, p_value = stats.ttest_independent(group1, group2)
-                        else:
-                            t_stat, p_value = stats.ttest_independent(group1, group2, equal_var=False)
-                        
-                        # 计算置信区间
-                        mean_diff = np.mean(group1) - np.mean(group2)
-                        sem = np.sqrt(np.var(group1)/len(group1) + np.var(group2)/len(group2))
-                        df = len(group1) + len(group2) - 2
-                        ci = stats.t.interval(
-                            alpha=self.confidence_interval/100,
-                            df=df,
-                            loc=mean_diff,
-                            scale=sem
-                        )
-                        
-                        # 执行Levene检验
-                        levene_stat, levene_p = stats.levene(group1, group2)
-                        
-                        # 创建结果
-                        result = {
-                            'test_variable': test_var_name,
-                            'group_variable': group_var_name,
-                            't_statistic': t_stat,
-                            'p_value': p_value,
-                            'df': df,
-                            'mean_group1': np.mean(group1),
-                            'mean_group2': np.mean(group2),
-                            'mean_diff': mean_diff,
-                            'std_error': sem,
-                            'confidence_interval': ci,
-                            'levene_statistic': levene_stat,
-                            'levene_p_value': levene_p,
-                            'equal_variances': self.equal_variances
-                        }
-                        
-                        self.analysis_results.append(result)
+                # 计算成功次数（值为1的次数）
+                successes = sum(1 for x in variable_data if x == 1)
+                n = len(variable_data)
+                
+                # 执行二项检验
+                p_value = None
+                if self.test_type == "two-tailed":
+                    # 双侧检验
+                    p_value = 2 * min(
+                        stats.binom.cdf(successes, n, self.test_proportion),
+                        1 - stats.binom.cdf(successes - 1, n, self.test_proportion)
+                    )
+                elif self.test_type == "one-tailed-lower":
+                    # 单侧检验（小于）
+                    p_value = stats.binom.cdf(successes, n, self.test_proportion)
+                elif self.test_type == "one-tailed-upper":
+                    # 单侧检验（大于）
+                    p_value = 1 - stats.binom.cdf(successes - 1, n, self.test_proportion)
+                
+                # 计算观察比例
+                observed_proportion = successes / n
+                
+                # 创建结果
+                result = {
+                    'variable': var_name,
+                    'n': n,
+                    'successes': successes,
+                    'observed_proportion': observed_proportion,
+                    'test_proportion': self.test_proportion,
+                    'p_value': p_value,
+                    'test_type': self.test_type
+                }
+                
+                self.analysis_results.append(result)
     
-    def _get_variable_data(self, test_var_name, group_var_name):
+    def _get_variable_data(self, var_name):
         """获取变量数据（模拟数据）"""
         import random
         import numpy as np
         
         # 根据变量名生成不同的模拟数据
-        seed = sum(ord(c) for c in test_var_name + group_var_name)
+        seed = sum(ord(c) for c in var_name)
         random.seed(seed)
         np.random.seed(seed)
         
-        # 生成正态分布数据
-        mean1 = 50 + (seed % 20)
-        mean2 = mean1 + 5  # 两组均值不同
-        std = 10 + (seed % 5)
-        
-        # 生成分组数据（1和2）
-        group_data = np.random.randint(1, 3, size=100)
-        
-        # 生成检验变量数据
-        test_data = []
-        for g in group_data:
-            if g == 1:
-                test_data.append(np.random.normal(mean1, std))
-            else:
-                test_data.append(np.random.normal(mean2, std))
+        # 生成二项分布数据（0或1）
+        # 模拟成功率为0.6
+        data = np.random.binomial(1, 0.6, size=100)
         
         # 转换为列表
-        return list(test_data), list(group_data)
+        return list(data)

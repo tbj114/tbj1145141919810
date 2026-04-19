@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-单因素方差分析对话框实现
+多因素方差分析对话框实现
 """
 
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, 
@@ -15,28 +15,27 @@ from axaltyx.gui.widgets.variable_selector import VariableSelector
 from axaltyx.i18n import I18nManager
 
 
-class OneWayANOVADialog(ArcoDialog):
-    """单因素方差分析对话框"""
+class MANOVADialog(ArcoDialog):
+    """多因素方差分析对话框"""
     
     analysis_completed = pyqtSignal(dict)  # 分析完成信号
     
     def __init__(self, parent=None, dataset=None):
         """
-        初始化单因素方差分析对话框
+        初始化多因素方差分析对话框
         
         Args:
             parent: 父窗口
             dataset: 数据集对象
         """
-        super().__init__(parent, "", 800, 550)
+        super().__init__(parent, "", 800, 600)
         self.i18n = I18nManager()
-        self.set_title("单因素方差分析")
+        self.set_title("多因素方差分析")
         self.dataset = dataset
         
         # 初始化参数
         self.confidence_interval = 95
         self.missing_values_option = "exclude_analysis"
-        self.post_hoc_test = "none"  # 事后检验方法
         
         self.analysis_results = []
         
@@ -108,29 +107,27 @@ class OneWayANOVADialog(ArcoDialog):
         self.check_homogeneity.setChecked(True)
         stats_options_layout.addWidget(self.check_homogeneity)
         
+        self.check_effect_size = QCheckBox("效应量")
+        self.check_effect_size.setChecked(True)
+        stats_options_layout.addWidget(self.check_effect_size)
+        
         stats_options_group.setLayout(stats_options_layout)
         stats_layout.addWidget(stats_options_group)
         
-        # 事后检验选项
-        post_hoc_group = QGroupBox("事后检验")
-        post_hoc_layout = QVBoxLayout()
+        # 模型选项
+        model_group = QGroupBox("模型选项")
+        model_layout = QVBoxLayout()
         
-        post_hoc_label = QLabel("选择事后检验方法:")
-        post_hoc_layout.addWidget(post_hoc_label)
+        self.check_main_effects = QCheckBox("主效应")
+        self.check_main_effects.setChecked(True)
+        model_layout.addWidget(self.check_main_effects)
         
-        self.post_hoc_combo = QComboBox()
-        self.post_hoc_combo.addItems([
-            "无",
-            "LSD",
-            "Bonferroni",
-            "Tukey HSD",
-            "Scheffe"
-        ])
-        self.post_hoc_combo.currentIndexChanged.connect(self._update_post_hoc_test)
-        post_hoc_layout.addWidget(self.post_hoc_combo)
+        self.check_interactions = QCheckBox("交互效应")
+        self.check_interactions.setChecked(True)
+        model_layout.addWidget(self.check_interactions)
         
-        post_hoc_group.setLayout(post_hoc_layout)
-        stats_layout.addWidget(post_hoc_group)
+        model_group.setLayout(model_layout)
+        stats_layout.addWidget(model_group)
         
         # 缺失值处理选项
         missing_group = QGroupBox("缺失值")
@@ -167,12 +164,6 @@ class OneWayANOVADialog(ArcoDialog):
         """更新置信区间"""
         self.confidence_interval = value
     
-    def _update_post_hoc_test(self, index):
-        """更新事后检验方法"""
-        post_hoc_methods = ["none", "lsd", "bonferroni", "tukey", "scheffe"]
-        if 0 <= index < len(post_hoc_methods):
-            self.post_hoc_test = post_hoc_methods[index]
-    
     def _update_missing_values_option(self):
         """更新缺失值处理选项"""
         if self.radio_exclude_analysis.isChecked():
@@ -186,8 +177,7 @@ class OneWayANOVADialog(ArcoDialog):
         dependent_variables = [
             ("VAR00001", "numeric"),
             ("VAR00002", "numeric"),
-            ("VAR00003", "numeric"),
-            ("VAR00005", "numeric")
+            ("VAR00003", "numeric")
         ]
         self.dependent_selector.set_variables(dependent_variables)
         
@@ -341,9 +331,11 @@ class OneWayANOVADialog(ArcoDialog):
         # 重置统计量选项
         self.check_descriptives.setChecked(True)
         self.check_homogeneity.setChecked(True)
+        self.check_effect_size.setChecked(True)
         
-        # 重置事后检验
-        self.post_hoc_combo.setCurrentIndex(0)
+        # 重置模型选项
+        self.check_main_effects.setChecked(True)
+        self.check_interactions.setChecked(True)
         
         # 重置缺失值处理选项
         self.radio_exclude_analysis.setChecked(True)
@@ -356,13 +348,15 @@ class OneWayANOVADialog(ArcoDialog):
         
         # 发送分析完成信号
         result_data = {
-            'analysis_type': 'oneway_anova',
+            'analysis_type': 'manova',
             'results': self.analysis_results,
             'confidence_interval': self.confidence_interval,
-            'post_hoc_test': self.post_hoc_test,
             'missing_values_option': self.missing_values_option,
             'descriptives': self.check_descriptives.isChecked(),
-            'homogeneity_test': self.check_homogeneity.isChecked()
+            'homogeneity_test': self.check_homogeneity.isChecked(),
+            'effect_size': self.check_effect_size.isChecked(),
+            'main_effects': self.check_main_effects.isChecked(),
+            'interactions': self.check_interactions.isChecked()
         }
         self.analysis_completed.emit(result_data)
         
@@ -370,7 +364,7 @@ class OneWayANOVADialog(ArcoDialog):
         self.accept()
     
     def _perform_analysis(self):
-        """执行单因素方差分析"""
+        """执行多因素方差分析"""
         # 获取选中的变量
         dependent_variables = self.get_selected_dependent_variables()
         factor_variables = self.get_selected_factor_variables()
@@ -380,89 +374,44 @@ class OneWayANOVADialog(ArcoDialog):
         
         self.analysis_results = []
         
-        # 对每个因变量和因子变量组合执行分析
+        # 模拟多因素方差分析结果
         for dep_var_name, dep_var_type in dependent_variables:
-            # 只对数值变量进行分析
             if dep_var_type != "numeric":
                 continue
             
-            for factor_var_name, factor_var_type in factor_variables:
-                # 获取变量数据（这里使用模拟数据）
-                dep_data, factor_data = self._get_variable_data(dep_var_name, factor_var_name)
-                
-                if dep_data and factor_data:
-                    # 执行统计计算
-                    from scipy import stats
-                    import numpy as np
-                    
-                    # 按因子分组
-                    groups = {}
-                    for d, f in zip(dep_data, factor_data):
-                        if f not in groups:
-                            groups[f] = []
-                        groups[f].append(d)
-                    
-                    # 确保至少有两个组
-                    if len(groups) >= 2:
-                        group_data = list(groups.values())
-                        
-                        # 执行方差分析
-                        f_stat, p_value = stats.f_oneway(*group_data)
-                        
-                        # 计算描述性统计
-                        descriptives = {}
-                        for group, data in groups.items():
-                            descriptives[group] = {
-                                'mean': np.mean(data),
-                                'std': np.std(data, ddof=1),
-                                'count': len(data)
-                            }
-                        
-                        # 执行方差齐性检验
-                        homogeneity_result = None
-                        if self.check_homogeneity.isChecked():
-                            stat, p = stats.levene(*group_data)
-                            homogeneity_result = {
-                                'statistic': stat,
-                                'p_value': p
-                            }
-                        
-                        # 创建结果
-                        result = {
-                            'dependent_variable': dep_var_name,
-                            'factor_variable': factor_var_name,
-                            'f_statistic': f_stat,
-                            'p_value': p_value,
-                            'df_between': len(groups) - 1,
-                            'df_within': len(dep_data) - len(groups),
-                            'descriptives': descriptives,
-                            'homogeneity_test': homogeneity_result
-                        }
-                        
-                        self.analysis_results.append(result)
-    
-    def _get_variable_data(self, dep_var_name, factor_var_name):
-        """获取变量数据（模拟数据）"""
-        import random
-        import numpy as np
-        
-        # 根据变量名生成不同的模拟数据
-        seed = sum(ord(c) for c in dep_var_name + factor_var_name)
-        random.seed(seed)
-        np.random.seed(seed)
-        
-        # 生成因子数据（3个水平）
-        factor_data = np.random.randint(1, 4, size=150)
-        
-        # 为每个因子水平生成不同均值的正态分布数据
-        dep_data = []
-        for f in factor_data:
-            if f == 1:
-                dep_data.append(np.random.normal(50, 10))
-            elif f == 2:
-                dep_data.append(np.random.normal(60, 10))
-            else:  # f == 3
-                dep_data.append(np.random.normal(70, 10))
-        
-        # 转换为列表
-        return list(dep_data), list(factor_data)
+            # 生成模拟结果
+            result = {
+                'dependent_variable': dep_var_name,
+                'factor_variables': [f[0] for f in factor_variables],
+                'model_summary': {
+                    'f_statistic': 3.25,
+                    'p_value': 0.021,
+                    'df_model': len(factor_variables),
+                    'df_error': 95
+                },
+                'effects': {
+                    'main_effects': [],
+                    'interactions': []
+                }
+            }
+            
+            # 添加主效应
+            if self.check_main_effects.isChecked():
+                for factor in factor_variables:
+                    result['effects']['main_effects'].append({
+                        'factor': factor[0],
+                        'f_statistic': 2.89,
+                        'p_value': 0.034,
+                        'df': 1
+                    })
+            
+            # 添加交互效应
+            if self.check_interactions.isChecked() and len(factor_variables) >= 2:
+                result['effects']['interactions'].append({
+                    'interaction': f"{factor_variables[0][0]} * {factor_variables[1][0]}",
+                    'f_statistic': 1.98,
+                    'p_value': 0.142,
+                    'df': 1
+                })
+            
+            self.analysis_results.append(result)
