@@ -30,7 +30,7 @@ class FactorDialog(ArcoDialog):
         """
         super().__init__(parent, "", 700, 550)
         self.i18n = I18nManager()
-        self.set_title("因子分析")
+        self.set_title(self.i18n.t("dialogs.factor.title"))
         self.dataset = dataset
         
         # 初始化参数
@@ -54,8 +54,8 @@ class FactorDialog(ArcoDialog):
         
         # 变量选择器
         self.variable_selector = VariableSelector()
-        self.variable_selector.set_available_label("变量")
-        self.variable_selector.set_selected_label("分析变量")
+        self.variable_selector.set_available_label(self.i18n.t("dialogs.factor.variables"))
+        self.variable_selector.set_selected_label(self.i18n.t("dialogs.factor.analysis_variables"))
         main_layout.addWidget(self.variable_selector, 2)
         
         # 选项标签页
@@ -67,19 +67,23 @@ class FactorDialog(ArcoDialog):
         extraction_layout.setSpacing(12)
         
         # 提取方法
-        extraction_group = QGroupBox("提取方法")
+        extraction_group = QGroupBox(self.i18n.t("dialogs.factor.extraction_method"))
         extraction_layout_inner = QVBoxLayout()
         
         self.extraction_combo = QComboBox()
-        self.extraction_combo.addItems(["主成分分析", "主轴因子分析", "最大似然法"])
+        self.extraction_combo.addItems([
+            self.i18n.t("dialogs.factor.principal_components"),
+            self.i18n.t("dialogs.factor.principal_axis"),
+            self.i18n.t("dialogs.factor.maximum_likelihood")
+        ])
         self.extraction_combo.currentIndexChanged.connect(self._update_extraction_method)
         extraction_layout_inner.addWidget(self.extraction_combo)
         
         # 因子数量
-        factor_count_group = QGroupBox("因子数量")
+        factor_count_group = QGroupBox(self.i18n.t("dialogs.factor.factor_count"))
         factor_count_layout = QHBoxLayout()
         
-        factor_count_label = QLabel("因子数:")
+        factor_count_label = QLabel(self.i18n.t("dialogs.factor.number_of_factors") + ":")
         self.factor_count_spin = QSpinBox()
         self.factor_count_spin.setRange(1, 10)
         self.factor_count_spin.setValue(self.factor_count)
@@ -95,18 +99,23 @@ class FactorDialog(ArcoDialog):
         extraction_layout.addWidget(extraction_group)
         
         extraction_widget.setLayout(extraction_layout)
-        options_tabs.addTab(extraction_widget, "提取")
+        options_tabs.addTab(extraction_widget, self.i18n.t("dialogs.factor.extraction"))
         
         # 旋转方法选项
         rotation_widget = QWidget()
         rotation_layout = QVBoxLayout()
         rotation_layout.setSpacing(12)
         
-        rotation_group = QGroupBox("旋转方法")
+        rotation_group = QGroupBox(self.i18n.t("dialogs.factor.rotation_method"))
         rotation_layout_inner = QVBoxLayout()
         
         self.rotation_combo = QComboBox()
-        self.rotation_combo.addItems(["方差最大旋转", "四次方最大旋转", "斜交旋转", "Promax旋转"])
+        self.rotation_combo.addItems([
+            self.i18n.t("dialogs.factor.varimax"),
+            self.i18n.t("dialogs.factor.quartimax"),
+            self.i18n.t("dialogs.factor.oblimin"),
+            self.i18n.t("dialogs.factor.promax")
+        ])
         self.rotation_combo.currentIndexChanged.connect(self._update_rotation_method)
         rotation_layout_inner.addWidget(self.rotation_combo)
         
@@ -114,25 +123,25 @@ class FactorDialog(ArcoDialog):
         rotation_layout.addWidget(rotation_group)
         
         rotation_widget.setLayout(rotation_layout)
-        options_tabs.addTab(rotation_widget, "旋转")
+        options_tabs.addTab(rotation_widget, self.i18n.t("dialogs.factor.rotation"))
         
         # 输出选项
         output_widget = QWidget()
         output_layout = QVBoxLayout()
         output_layout.setSpacing(12)
         
-        output_group = QGroupBox("输出")
+        output_group = QGroupBox(self.i18n.t("dialogs.factor.output"))
         output_check_layout = QVBoxLayout()
         
-        self.check_loadings = QCheckBox("显示因子载荷")
+        self.check_loadings = QCheckBox(self.i18n.t("dialogs.factor.show_factor_loadings"))
         self.check_loadings.setChecked(True)
         self.check_loadings.toggled.connect(self._update_display_loadings)
         
-        self.check_communalities = QCheckBox("显示公因子方差")
+        self.check_communalities = QCheckBox(self.i18n.t("dialogs.factor.show_communalities"))
         self.check_communalities.setChecked(True)
         self.check_communalities.toggled.connect(self._update_display_communalities)
         
-        self.check_eigenvalues = QCheckBox("显示特征值")
+        self.check_eigenvalues = QCheckBox(self.i18n.t("dialogs.factor.show_eigenvalues"))
         self.check_eigenvalues.setChecked(True)
         self.check_eigenvalues.toggled.connect(self._update_display_eigenvalues)
         
@@ -144,7 +153,7 @@ class FactorDialog(ArcoDialog):
         output_layout.addWidget(output_group)
         
         output_widget.setLayout(output_layout)
-        options_tabs.addTab(output_widget, "输出")
+        options_tabs.addTab(output_widget, self.i18n.t("dialogs.factor.output"))
         
         main_layout.addWidget(options_tabs, 1)
         

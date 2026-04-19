@@ -29,7 +29,7 @@ class FrequenciesDialog(ArcoDialog):
         """
         super().__init__(parent, "", 700, 550)
         self.i18n = I18nManager()
-        self.set_title("频数分析")
+        self.set_title(self.i18n.t("dialogs.frequencies.title"))
         self.dataset = dataset
         
         # 初始化选择状态
@@ -58,8 +58,8 @@ class FrequenciesDialog(ArcoDialog):
         
         # 变量选择器
         self.variable_selector = VariableSelector()
-        self.variable_selector.set_available_label("变量")
-        self.variable_selector.set_selected_label("分析变量")
+        self.variable_selector.set_available_label(self.i18n.t("dialogs.frequencies.variables"))
+        self.variable_selector.set_selected_label(self.i18n.t("dialogs.frequencies.analysis_variables"))
         main_layout.addWidget(self.variable_selector, 2)
         
         # 选项标签页
@@ -94,27 +94,27 @@ class FrequenciesDialog(ArcoDialog):
     
     def _create_statistics_checkboxes(self, parent_layout):
         """创建统计量复选框"""
-        group = QGroupBox("显示")
+        group = QGroupBox(self.i18n.t("dialogs.frequencies.display"))
         group_layout = QVBoxLayout()
         group_layout.setSpacing(10)
         
         # 创建复选框
-        self.check_frequencies = QCheckBox("频数")
+        self.check_frequencies = QCheckBox(self.i18n.t("dialogs.frequencies.frequencies"))
         self.check_frequencies.setChecked(True)
         self.check_frequencies.toggled.connect(self._update_statistics_options)
         group_layout.addWidget(self.check_frequencies)
         
-        self.check_percentages = QCheckBox("百分比")
+        self.check_percentages = QCheckBox(self.i18n.t("dialogs.frequencies.percentages"))
         self.check_percentages.setChecked(True)
         self.check_percentages.toggled.connect(self._update_statistics_options)
         group_layout.addWidget(self.check_percentages)
         
-        self.check_cumulative_percentages = QCheckBox("累计百分比")
+        self.check_cumulative_percentages = QCheckBox(self.i18n.t("dialogs.frequencies.cumulative_percentages"))
         self.check_cumulative_percentages.setChecked(True)
         self.check_cumulative_percentages.toggled.connect(self._update_statistics_options)
         group_layout.addWidget(self.check_cumulative_percentages)
         
-        self.check_valid_percentages = QCheckBox("有效百分比")
+        self.check_valid_percentages = QCheckBox(self.i18n.t("dialogs.frequencies.valid_percentages"))
         self.check_valid_percentages.setChecked(True)
         self.check_valid_percentages.toggled.connect(self._update_statistics_options)
         group_layout.addWidget(self.check_valid_percentages)
@@ -124,15 +124,15 @@ class FrequenciesDialog(ArcoDialog):
     
     def _create_chart_checkboxes(self, parent_layout):
         """创建图表复选框"""
-        group = QGroupBox("图表")
+        group = QGroupBox(self.i18n.t("dialogs.frequencies.charts"))
         group_layout = QVBoxLayout()
         group_layout.setSpacing(10)
         
-        self.check_bar_chart = QCheckBox("条形图")
+        self.check_bar_chart = QCheckBox(self.i18n.t("dialogs.frequencies.bar_chart"))
         self.check_bar_chart.toggled.connect(self._update_chart_options)
         group_layout.addWidget(self.check_bar_chart)
         
-        self.check_pie_chart = QCheckBox("饼图")
+        self.check_pie_chart = QCheckBox(self.i18n.t("dialogs.frequencies.pie_chart"))
         self.check_pie_chart.toggled.connect(self._update_chart_options)
         group_layout.addWidget(self.check_pie_chart)
         

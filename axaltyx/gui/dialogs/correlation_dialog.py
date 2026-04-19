@@ -29,7 +29,7 @@ class CorrelationDialog(ArcoDialog):
         """
         super().__init__(parent, "", 700, 550)
         self.i18n = I18nManager()
-        self.set_title("相关分析")
+        self.set_title(self.i18n.t("dialogs.correlation.title"))
         self.dataset = dataset
         
         # 初始化参数
@@ -50,8 +50,8 @@ class CorrelationDialog(ArcoDialog):
         
         # 变量选择器
         self.variable_selector = VariableSelector()
-        self.variable_selector.set_available_label("变量")
-        self.variable_selector.set_selected_label("相关变量")
+        self.variable_selector.set_available_label(self.i18n.t("dialogs.correlation.variables"))
+        self.variable_selector.set_selected_label(self.i18n.t("dialogs.correlation.correlation_variables"))
         main_layout.addWidget(self.variable_selector, 2)
         
         # 选项标签页
@@ -63,26 +63,30 @@ class CorrelationDialog(ArcoDialog):
         corr_layout.setSpacing(12)
         
         # 相关系数类型
-        corr_type_group = QGroupBox("相关系数")
+        corr_type_group = QGroupBox(self.i18n.t("dialogs.correlation.correlation_coefficient"))
         corr_type_layout = QVBoxLayout()
         
         self.corr_type_combo = QComboBox()
-        self.corr_type_combo.addItems(["皮尔逊相关", "肯德尔相关", "斯皮尔曼相关"])
+        self.corr_type_combo.addItems([
+            self.i18n.t("dialogs.correlation.pearson"),
+            self.i18n.t("dialogs.correlation.kendall"),
+            self.i18n.t("dialogs.correlation.spearman")
+        ])
         self.corr_type_combo.currentIndexChanged.connect(self._update_correlation_type)
         corr_type_layout.addWidget(self.corr_type_combo)
         corr_type_group.setLayout(corr_type_layout)
         corr_layout.addWidget(corr_type_group)
         
         # 显著性检验选项
-        test_group = QGroupBox("显著性检验")
+        test_group = QGroupBox(self.i18n.t("dialogs.correlation.significance_test"))
         test_layout = QVBoxLayout()
         
-        self.check_test_significance = QCheckBox("进行显著性检验")
+        self.check_test_significance = QCheckBox(self.i18n.t("dialogs.correlation.perform_significance_test"))
         self.check_test_significance.setChecked(True)
         self.check_test_significance.toggled.connect(self._update_test_significance)
         test_layout.addWidget(self.check_test_significance)
         
-        self.check_flag_significance = QCheckBox("标记显著性相关")
+        self.check_flag_significance = QCheckBox(self.i18n.t("dialogs.correlation.flag_significant_correlations"))
         self.check_flag_significance.setChecked(True)
         self.check_flag_significance.toggled.connect(self._update_flag_significance)
         test_layout.addWidget(self.check_flag_significance)
@@ -91,7 +95,7 @@ class CorrelationDialog(ArcoDialog):
         corr_layout.addWidget(test_group)
         
         corr_widget.setLayout(corr_layout)
-        options_tabs.addTab(corr_widget, "相关选项")
+        options_tabs.addTab(corr_widget, self.i18n.t("dialogs.correlation.correlation_options"))
         
         main_layout.addWidget(options_tabs, 1)
         

@@ -30,7 +30,7 @@ class ClusterDialog(ArcoDialog):
         """
         super().__init__(parent, "", 700, 550)
         self.i18n = I18nManager()
-        self.set_title("聚类分析")
+        self.set_title(self.i18n.t("dialogs.cluster.title"))
         self.dataset = dataset
         
         # 初始化参数
@@ -52,8 +52,8 @@ class ClusterDialog(ArcoDialog):
         
         # 变量选择器
         self.variable_selector = VariableSelector()
-        self.variable_selector.set_available_label("变量")
-        self.variable_selector.set_selected_label("聚类变量")
+        self.variable_selector.set_available_label(self.i18n.t("dialogs.cluster.variables"))
+        self.variable_selector.set_selected_label(self.i18n.t("dialogs.cluster.cluster_variables"))
         main_layout.addWidget(self.variable_selector, 2)
         
         # 选项标签页
@@ -65,14 +65,14 @@ class ClusterDialog(ArcoDialog):
         method_layout.setSpacing(12)
         
         # 聚类方法
-        method_group = QGroupBox("聚类方法")
+        method_group = QGroupBox(self.i18n.t("dialogs.cluster.cluster_method"))
         method_button_group = QButtonGroup()
         method_button_layout = QVBoxLayout()
         
-        self.radio_kmeans = QRadioButton("K-均值聚类")
+        self.radio_kmeans = QRadioButton(self.i18n.t("dialogs.cluster.kmeans"))
         self.radio_kmeans.setChecked(True)
-        self.radio_hierarchical = QRadioButton("层次聚类")
-        self.radio_dbscan = QRadioButton("DBSCAN聚类")
+        self.radio_hierarchical = QRadioButton(self.i18n.t("dialogs.cluster.hierarchical"))
+        self.radio_dbscan = QRadioButton(self.i18n.t("dialogs.cluster.dbscan"))
         
         method_button_group.addButton(self.radio_kmeans)
         method_button_group.addButton(self.radio_hierarchical)
@@ -86,10 +86,10 @@ class ClusterDialog(ArcoDialog):
         method_layout.addWidget(method_group)
         
         # 聚类数量
-        cluster_count_group = QGroupBox("聚类数量")
+        cluster_count_group = QGroupBox(self.i18n.t("dialogs.cluster.number_of_clusters"))
         cluster_count_layout = QHBoxLayout()
         
-        cluster_count_label = QLabel("聚类数:")
+        cluster_count_label = QLabel(self.i18n.t("dialogs.cluster.cluster_count") + ":")
         self.cluster_count_spin = QSpinBox()
         self.cluster_count_spin.setRange(2, 10)
         self.cluster_count_spin.setValue(self.cluster_count)
@@ -102,7 +102,7 @@ class ClusterDialog(ArcoDialog):
         method_layout.addWidget(cluster_count_group)
         
         method_widget.setLayout(method_layout)
-        options_tabs.addTab(method_widget, "聚类方法")
+        options_tabs.addTab(method_widget, self.i18n.t("dialogs.cluster.cluster_method"))
         
         # 距离和标准化选项
         distance_widget = QWidget()
@@ -110,11 +110,15 @@ class ClusterDialog(ArcoDialog):
         distance_layout.setSpacing(12)
         
         # 距离方法
-        distance_group = QGroupBox("距离方法")
+        distance_group = QGroupBox(self.i18n.t("dialogs.cluster.distance_method"))
         distance_combo_layout = QVBoxLayout()
         
         self.distance_combo = QComboBox()
-        self.distance_combo.addItems(["欧几里得距离", "曼哈顿距离", "余弦距离"])
+        self.distance_combo.addItems([
+            self.i18n.t("dialogs.cluster.euclidean"),
+            self.i18n.t("dialogs.cluster.manhattan"),
+            self.i18n.t("dialogs.cluster.cosine")
+        ])
         self.distance_combo.currentIndexChanged.connect(self._update_distance_method)
         distance_combo_layout.addWidget(self.distance_combo)
         
@@ -122,10 +126,10 @@ class ClusterDialog(ArcoDialog):
         distance_layout.addWidget(distance_group)
         
         # 标准化选项
-        standardize_group = QGroupBox("数据处理")
+        standardize_group = QGroupBox(self.i18n.t("dialogs.cluster.data_processing"))
         standardize_layout = QVBoxLayout()
         
-        self.check_standardize = QCheckBox("标准化变量")
+        self.check_standardize = QCheckBox(self.i18n.t("dialogs.cluster.standardize_variables"))
         self.check_standardize.setChecked(True)
         self.check_standardize.toggled.connect(self._update_standardize)
         standardize_layout.addWidget(self.check_standardize)
@@ -134,7 +138,7 @@ class ClusterDialog(ArcoDialog):
         distance_layout.addWidget(standardize_group)
         
         distance_widget.setLayout(distance_layout)
-        options_tabs.addTab(distance_widget, "距离和标准化")
+        options_tabs.addTab(distance_widget, self.i18n.t("dialogs.cluster.distance_and_standardization"))
         
         main_layout.addWidget(options_tabs, 1)
         

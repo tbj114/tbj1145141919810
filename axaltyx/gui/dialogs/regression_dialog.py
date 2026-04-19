@@ -30,7 +30,7 @@ class RegressionDialog(ArcoDialog):
         """
         super().__init__(parent, "", 700, 550)
         self.i18n = I18nManager()
-        self.set_title("回归分析")
+        self.set_title(self.i18n.t("dialogs.regression.title"))
         self.dataset = dataset
         
         # 初始化参数
@@ -56,22 +56,22 @@ class RegressionDialog(ArcoDialog):
         var_layout.setSpacing(20)
         
         # 因变量选择
-        dep_group = QGroupBox("因变量")
+        dep_group = QGroupBox(self.i18n.t("dialogs.regression.dependent_variable"))
         dep_layout = QVBoxLayout()
         self.dep_selector = VariableSelector()
-        self.dep_selector.set_available_label("可用变量")
-        self.dep_selector.set_selected_label("因变量")
+        self.dep_selector.set_available_label(self.i18n.t("dialogs.common.available_variables"))
+        self.dep_selector.set_selected_label(self.i18n.t("dialogs.regression.dependent_variable"))
         self.dep_selector.set_max_selected(1)  # 只允许选择一个因变量
         dep_layout.addWidget(self.dep_selector)
         dep_group.setLayout(dep_layout)
         var_layout.addWidget(dep_group, 1)
         
         # 自变量选择
-        indep_group = QGroupBox("自变量")
+        indep_group = QGroupBox(self.i18n.t("dialogs.regression.independent_variable"))
         indep_layout = QVBoxLayout()
         self.indep_selector = VariableSelector()
-        self.indep_selector.set_available_label("可用变量")
-        self.indep_selector.set_selected_label("自变量")
+        self.indep_selector.set_available_label(self.i18n.t("dialogs.common.available_variables"))
+        self.indep_selector.set_selected_label(self.i18n.t("dialogs.regression.independent_variable"))
         indep_layout.addWidget(self.indep_selector)
         indep_group.setLayout(indep_layout)
         var_layout.addWidget(indep_group, 1)
@@ -87,14 +87,14 @@ class RegressionDialog(ArcoDialog):
         type_layout.setSpacing(12)
         
         # 回归类型选择
-        type_group = QGroupBox("回归类型")
+        type_group = QGroupBox(self.i18n.t("dialogs.regression.regression_type"))
         type_button_group = QButtonGroup()
         type_button_layout = QVBoxLayout()
         
-        self.radio_linear = QRadioButton("线性回归")
+        self.radio_linear = QRadioButton(self.i18n.t("dialogs.regression.linear_regression"))
         self.radio_linear.setChecked(True)
-        self.radio_multiple = QRadioButton("多元线性回归")
-        self.radio_logistic = QRadioButton("Logistic回归")
+        self.radio_multiple = QRadioButton(self.i18n.t("dialogs.regression.multiple_regression"))
+        self.radio_logistic = QRadioButton(self.i18n.t("dialogs.regression.logistic_regression"))
         
         type_button_group.addButton(self.radio_linear)
         type_button_group.addButton(self.radio_multiple)
@@ -108,10 +108,10 @@ class RegressionDialog(ArcoDialog):
         type_layout.addWidget(type_group)
         
         # 模型选项
-        model_group = QGroupBox("模型选项")
+        model_group = QGroupBox(self.i18n.t("dialogs.regression.model_options"))
         model_layout = QVBoxLayout()
         
-        self.check_constant = QCheckBox("包含常数项")
+        self.check_constant = QCheckBox(self.i18n.t("dialogs.regression.include_constant"))
         self.check_constant.setChecked(True)
         self.check_constant.toggled.connect(self._update_include_constant)
         model_layout.addWidget(self.check_constant)
@@ -120,23 +120,23 @@ class RegressionDialog(ArcoDialog):
         type_layout.addWidget(model_group)
         
         type_widget.setLayout(type_layout)
-        options_tabs.addTab(type_widget, "回归类型")
+        options_tabs.addTab(type_widget, self.i18n.t("dialogs.regression.regression_type"))
         
         # 统计量选项
         stats_widget = QWidget()
         stats_layout = QVBoxLayout()
         stats_layout.setSpacing(12)
         
-        stats_group = QGroupBox("统计量")
+        stats_group = QGroupBox(self.i18n.t("dialogs.common.statistics"))
         stats_check_layout = QVBoxLayout()
         
-        self.check_descriptives = QCheckBox("描述性统计")
+        self.check_descriptives = QCheckBox(self.i18n.t("dialogs.regression.descriptive_statistics"))
         self.check_descriptives.setChecked(True)
-        self.check_anova = QCheckBox("方差分析")
+        self.check_anova = QCheckBox(self.i18n.t("dialogs.regression.anova"))
         self.check_anova.setChecked(True)
-        self.check_coefficients = QCheckBox("回归系数")
+        self.check_coefficients = QCheckBox(self.i18n.t("dialogs.regression.coefficients"))
         self.check_coefficients.setChecked(True)
-        self.check_model_summary = QCheckBox("模型摘要")
+        self.check_model_summary = QCheckBox(self.i18n.t("dialogs.regression.model_summary"))
         self.check_model_summary.setChecked(True)
         
         stats_check_layout.addWidget(self.check_descriptives)
