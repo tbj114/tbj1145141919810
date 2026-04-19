@@ -39,5 +39,6 @@
   "analyze_frequencies": "频数分析",
   "analyze_crosstabs": "交叉表",
   "help_about": "关于 AxaltyX",
-  "help_documentation": "文档"
+  "help_documentation": "文档",
+  "run": "运行"
 }

@@ -39,5 +39,6 @@
   "analyze_frequencies": "Frequencies",
   "analyze_crosstabs": "Crosstabs",
   "help_about": "About AxaltyX",
-  "help_documentation": "Documentation"
+  "help_documentation": "Documentation",
+  "run": "Run"
 }

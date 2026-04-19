@@ -2,6 +2,7 @@
   "app_name": "AxaltyX",
   "version": "1.0.0",
   "copyright": "Copyright TBJ114. All rights reserved.",
+  "ready": "就绪",
   "splash_loading": "正在加载...",
   "splash_init": "正在初始化...",
   "splash_ready": "准备就绪",
