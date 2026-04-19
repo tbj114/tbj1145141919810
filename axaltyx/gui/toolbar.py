@@ -41,3 +41,16 @@ class ToolBar(QToolBar):
         button.setToolTip(self.i18n.t(text_key))
         button.clicked.connect(slot)
         self.addWidget(button)
+    
+    # 可调用的方法，而不仅仅是信号
+    def undo_action(self):
+        self.undo.emit()
+    
+    def redo_action(self):
+        self.redo.emit()
+    
+    def copy_action(self):
+        self.copy.emit()
+    
+    def paste_action(self):
+        self.paste.emit()

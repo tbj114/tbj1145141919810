@@ -94,4 +94,10 @@ def apply_theme(widget):
         with open(widgets_style_path, "r", encoding="utf-8") as f:
             stylesheet += f.read()
     
-    QApplication.setStyleSheet(stylesheet)
+    if isinstance(widget, QApplication):
+        widget.setStyleSheet(stylesheet)
+    else:
+        from PyQt6.QtWidgets import QApplication
+        app = QApplication.instance()
+        if app:
+            app.setStyleSheet(stylesheet)

@@ -75,8 +75,8 @@ class MainWindow(FramelessWindow):
         self.menu_bar.undo.connect(self._on_undo)
         self.menu_bar.redo.connect(self._on_redo)
         self.menu_bar.cut.connect(self._on_cut)
-        self.menu_bar.copy.connect(self.tool_bar.copy)
-        self.menu_bar.paste.connect(self.tool_bar.paste)
+        self.menu_bar.copy.connect(self.tool_bar.copy.emit)
+        self.menu_bar.paste.connect(self.tool_bar.paste.emit)
         self.menu_bar.find.connect(self._on_find)
         self.menu_bar.replace.connect(self._on_replace)
         
@@ -159,12 +159,12 @@ class MainWindow(FramelessWindow):
     # ==================== 编辑菜单方法 ====================
     def _on_undo(self):
         """撤销"""
-        self.tool_bar.undo()
+        self.tool_bar.undo.emit()
         self.status_bar.show_message(self.i18n.t("app.undo_performed"))
 
     def _on_redo(self):
         """重做"""
-        self.tool_bar.redo()
+        self.tool_bar.redo.emit()
         self.status_bar.show_message(self.i18n.t("app.redo_performed"))
 
     def _on_cut(self):

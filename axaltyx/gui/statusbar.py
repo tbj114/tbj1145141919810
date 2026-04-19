@@ -15,6 +15,15 @@ class StatusBar(QStatusBar):
         self.row_col_label = QLabel("0 × 0")
         self.addPermanentWidget(self.row_col_label)
 
+    def show_message(self, text: str, timeout: int = 0):
+        """显示消息 - 与QStatusBar API保持一致"""
+        self.status_label.setText(text)
+        self.showMessage(text, timeout)
+    
+    def showMessage(self, text: str, timeout: int = 0):
+        """显示消息 - 标准Qt API"""
+        super().showMessage(text, timeout)
+    
     def set_status(self, text: str):
         self.status_label.setText(text)
 
