@@ -22,6 +22,7 @@ from axaltyx.gui.widgets.arco_splitter import ArcoSplitter
 from axaltyx.gui.widgets.arco_scrollbar import ArcoScrollBar
 from axaltyx.gui.widgets.arco_tooltip import ArcoToolTip
 from axaltyx.gui.widgets.arco_tabs import ArcoTabWidget, ArcoTabBar
+from axaltyx.gui.widgets.arco_dialog import ArcoDialog
 
 __all__ = [
     "OutputTree",
@@ -44,4 +45,5 @@ __all__ = [
     "ArcoToolTip",
     "ArcoTabWidget",
     "ArcoTabBar",
+    "ArcoDialog",
 ]
