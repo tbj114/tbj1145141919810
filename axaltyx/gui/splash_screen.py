@@ -111,4 +111,13 @@ class SplashScreen(QWidget):
             if value >= 100:
                 self.timer.stop()
                 self.close()
+    
+    def update_progress(self, value, message=None):
+        """更新进度（外部调用，带消息）"""
+        if 0 <= value <= 100:
+            self.progress = value
+            self.progress_bar.setValue(value)
+            if value >= 100:
+                self.timer.stop()
+                self.close()
 
