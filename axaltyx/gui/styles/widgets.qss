@@ -1,0 +1,321 @@
+/* Arco Design - 控件样式 */
+
+/* 按钮通用样式 */
+QPushButton {
+    border: none;
+    border-radius: 4px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    height: 32px;
+    min-width: 64px;
+}
+
+QPushButton:hover {
+    border: none;
+}
+
+QPushButton:pressed {
+    border: none;
+}
+
+QPushButton:disabled {
+    opacity: 0.5;
+}
+
+/* Primary 按钮样式 */
+QPushButton[class="primary"] {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+QPushButton[class="primary"]:hover {
+    background-color: var(--color-primary-hover);
+}
+
+QPushButton[class="primary"]:pressed {
+    background-color: var(--color-primary-active);
+}
+
+/* Secondary 按钮样式 */
+QPushButton[class="secondary"] {
+    background-color: var(--color-gray-2);
+    color: var(--color-gray-8);
+}
+
+QPushButton[class="secondary"]:hover {
+    background-color: var(--color-gray-3);
+}
+
+QPushButton[class="secondary"]:pressed {
+    background-color: var(--color-gray-4);
+}
+
+/* Outline 按钮样式 */
+QPushButton[class="outline"] {
+    background-color: transparent;
+    border: 1px solid var(--color-gray-4);
+    color: var(--color-gray-8);
+}
+
+QPushButton[class="outline"]:hover {
+    background-color: var(--color-gray-1);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+QPushButton[class="outline"]:pressed {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-active);
+    color: var(--color-primary-active);
+}
+
+/* Text 按钮样式 */
+QPushButton[class="text"] {
+    background-color: transparent;
+    color: var(--color-gray-8);
+}
+
+QPushButton[class="text"]:hover {
+    background-color: var(--color-gray-1);
+    color: var(--color-primary);
+}
+
+QPushButton[class="text"]:pressed {
+    background-color: var(--color-gray-2);
+    color: var(--color-primary-active);
+}
+
+/* 按钮尺寸样式 */
+QPushButton[size="mini"] {
+    height: 24px;
+    padding: 0 12px;
+    font-size: 12px;
+    min-width: 48px;
+}
+
+QPushButton[size="small"] {
+    height: 28px;
+    padding: 0 14px;
+    font-size: 13px;
+    min-width: 56px;
+}
+
+QPushButton[size="default"] {
+    height: 32px;
+    padding: 0 16px;
+    font-size: 14px;
+    min-width: 64px;
+}
+
+QPushButton[size="large"] {
+    height: 36px;
+    padding: 0 20px;
+    font-size: 15px;
+    min-width: 72px;
+}
+
+/* 输入框样式 */
+QLineEdit {
+    background-color: white;
+    border: 1px solid var(--color-gray-3);
+    border-radius: 4px;
+    padding: 0 12px;
+    height: 32px;
+    font-size: 14px;
+    color: var(--color-gray-8);
+}
+
+QLineEdit:hover {
+    border-color: var(--color-gray-5);
+}
+
+QLineEdit:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+QLineEdit:disabled {
+    background-color: var(--color-gray-1);
+    border-color: var(--color-gray-3);
+    color: var(--color-gray-5);
+}
+
+QLineEdit[placeholderText] {
+    color: var(--color-gray-5);
+}
+
+/* 下拉框样式 */
+QComboBox {
+    background-color: white;
+    border: 1px solid var(--color-gray-3);
+    border-radius: 4px;
+    padding: 0 12px;
+    height: 32px;
+    font-size: 14px;
+    color: var(--color-gray-8);
+}
+
+QComboBox:hover {
+    border-color: var(--color-gray-5);
+}
+
+QComboBox:focus {
+    border-color: var(--color-primary);
+}
+
+QComboBox:disabled {
+    background-color: var(--color-gray-1);
+    border-color: var(--color-gray-3);
+    color: var(--color-gray-5);
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--color-gray-6);
+    width: 0;
+    height: 0;
+}
+
+QComboBox::down-arrow:hover {
+    border-top-color: var(--color-primary);
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid var(--color-gray-3);
+    border-radius: 4px;
+    background-color: white;
+    padding: 4px 0;
+    selection-background-color: var(--color-primary-light);
+    selection-color: var(--color-primary);
+    color: var(--color-gray-8);
+}
+
+QComboBox QAbstractItemView::item {
+    height: 32px;
+    padding: 0 12px;
+}
+
+QComboBox QAbstractItemView::item:hover {
+    background-color: var(--color-gray-1);
+}
+
+QComboBox QAbstractItemView::item:selected {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* 标签页样式 */
+QTabWidget::pane {
+    border: none;
+    border-top: 1px solid var(--color-gray-3);
+    background-color: white;
+}
+
+QTabBar::tab {
+    background-color: transparent;
+    color: var(--color-gray-7);
+    padding: 8px 16px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-right: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+QTabBar::tab:hover {
+    color: var(--color-primary);
+}
+
+QTabBar::tab:selected {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+QTabBar::tab:!selected {
+    border-bottom-color: transparent;
+}
+
+QTabBar::tab:disabled {
+    color: var(--color-gray-5);
+}
+
+/* 复选框和单选框样式 */
+QCheckBox, QRadioButton {
+    spacing: 8px;
+}
+
+QCheckBox::indicator, QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-gray-4);
+    border-radius: 2px;
+    background-color: white;
+}
+
+QRadioButton::indicator {
+    border-radius: 50%;
+}
+
+QCheckBox::indicator:hover, QRadioButton::indicator:hover {
+    border-color: var(--color-primary);
+}
+
+QCheckBox::indicator:checked, QRadioButton::indicator:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+QCheckBox::indicator:checked:hover, QRadioButton::indicator:checked:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+}
+
+QCheckBox::indicator:disabled, QRadioButton::indicator:disabled {
+    background-color: var(--color-gray-1);
+    border-color: var(--color-gray-3);
+}
+
+QCheckBox::indicator:disabled:checked, QRadioButton::indicator:disabled:checked {
+    background-color: var(--color-gray-3);
+    border-color: var(--color-gray-3);
+}
+
+QCheckBox::indicator:checked {
+    image: url(:/icons/check);
+}
+
+QRadioButton::indicator:checked {
+    image: url(:/icons/dot);
+}
+
+/* 菜单样式 */
+QMenu {
+    background-color: white;
+    border: 1px solid var(--color-gray-3);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QMenu::item {
+    padding: 8px 12px;
+    border-radius: 2px;
+    margin: 0;
+}
+
+QMenu::item:selected {
+    background-color: var(--color-gray-1);
+}
+
+QMenu::separator {
+    height: 1px;
+    background-color: var(--color-gray-3);
+    margin: 4px 8px;
+}

@@ -1,0 +1,112 @@
+/* Arco Design - 全局样式 */
+
+/* 全局变量定义 */
+* {
+    --color-primary: #165DFF;
+    --color-primary-hover: #4080FF;
+    --color-primary-active: #0E42D2;
+    --color-primary-light: #E8F3FF;
+    --color-gray-1: #F7F8FA;
+    --color-gray-2: #F2F3F5;
+    --color-gray-3: #E5E6EB;
+    --color-gray-4: #C9CDD4;
+    --color-gray-5: #A9AEB8;
+    --color-gray-6: #86909C;
+    --color-gray-7: #6B7785;
+    --color-gray-8: #4E5969;
+    --color-gray-9: #272E3B;
+    --color-gray-10: #1D2129;
+    --color-success: #00B42A;
+    --color-warning: #FF7D00;
+    --color-danger: #F53F3F;
+    --color-link: #165DFF;
+    --font-family: 'Nunito', 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+    --font-size-caption: 12px;
+    --font-size-body: 14px;
+    --font-size-subtitle: 16px;
+    --font-size-title: 20px;
+    --spacing-mini: 4px;
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+    --radius-small: 2px;
+    --radius-medium: 4px;
+    --radius-large: 8px;
+    --shadow-1: 0 -2px 5px rgba(0,0,0,0.1);
+    --shadow-2: 0 0 10px rgba(0,0,0,0.1);
+    --shadow-3: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* 全局背景和字体 */
+QWidget {
+    background-color: #FFFFFF;
+    color: var(--color-gray-8);
+    font-family: var(--font-family);
+    font-size: var(--font-size-body);
+}
+
+/* 链接样式 */
+QLabel[link="true"] {
+    color: var(--color-link);
+    text-decoration: underline;
+}
+
+QLabel[link="true"]:hover {
+    color: var(--color-primary-hover);
+}
+
+/* 分割线样式 */
+QFrame[frameShape="4"],
+QFrame[frameShape="5"],
+QFrame[frameShape="6"],
+QFrame[frameShape="7"] {
+    background-color: var(--color-gray-3);
+    border: none;
+}
+
+/* 滚动条基础样式 */
+QScrollBar:vertical {
+    border: none;
+    background-color: var(--color-gray-1);
+    width: 4px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: var(--color-gray-4);
+    min-height: 20px;
+    border-radius: 2px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: var(--color-gray-5);
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    border: none;
+    background-color: var(--color-gray-1);
+    height: 4px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: var(--color-gray-4);
+    min-width: 20px;
+    border-radius: 2px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: var(--color-gray-5);
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
