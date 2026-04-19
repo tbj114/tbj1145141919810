@@ -1,0 +1,10 @@
+{
+  "add_row_above": "Insert Row Above",
+  "add_row_below": "Insert Row Below",
+  "add_col_left": "Insert Column Left",
+  "add_col_right": "Insert Column Right",
+  "delete_rows": "Delete Selected Rows",
+  "delete_cols": "Delete Selected Columns",
+  "copy": "Copy",
+  "paste": "Paste"
+}

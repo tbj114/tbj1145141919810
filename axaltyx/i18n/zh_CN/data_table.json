@@ -1,0 +1,10 @@
+{
+  "add_row_above": "在上方插入行",
+  "add_row_below": "在下方插入行",
+  "add_col_left": "在左侧插入列",
+  "add_col_right": "在右侧插入列",
+  "delete_rows": "删除选中行",
+  "delete_cols": "删除选中列",
+  "copy": "复制",
+  "paste": "粘贴"
+}

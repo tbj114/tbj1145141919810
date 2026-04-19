@@ -1,0 +1,11 @@
+{
+  "name": "Name",
+  "type": "Type",
+  "label": "Label",
+  "values": "Values",
+  "missing": "Missing",
+  "measurement": "Measurement",
+  "add_above": "Insert Variable Above",
+  "add_below": "Insert Variable Below",
+  "delete": "Delete Variable"
+}

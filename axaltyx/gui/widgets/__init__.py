@@ -11,6 +11,10 @@ from axaltyx.gui.widgets.transfer_button import TransferButton
 from axaltyx.gui.widgets.variable_list import VariableList
 from axaltyx.gui.widgets.variable_selector import VariableSelector
 from axaltyx.gui.widgets.variable_table import VariableTable
+from axaltyx.gui.widgets.data_table import DataTable
+from axaltyx.gui.widgets.arco_button import ArcoButton
+from axaltyx.gui.widgets.arco_input import ArcoInput
+from axaltyx.gui.widgets.arco_tree import ArcoTree, ArcoTreeItem
 
 __all__ = [
     "OutputTree",
@@ -20,4 +24,9 @@ __all__ = [
     "VariableList",
     "VariableSelector",
     "VariableTable",
+    "DataTable",
+    "ArcoButton",
+    "ArcoInput",
+    "ArcoTree",
+    "ArcoTreeItem",
 ]

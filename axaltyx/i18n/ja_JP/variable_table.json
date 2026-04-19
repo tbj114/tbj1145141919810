@@ -1,0 +1,11 @@
+{
+  "name": "変数名",
+  "type": "タイプ",
+  "label": "ラベル",
+  "values": "値",
+  "missing": "欠損値",
+  "measurement": "測定",
+  "add_above": "上に変数を挿入",
+  "add_below": "下に変数を挿入",
+  "delete": "変数を削除"
+}

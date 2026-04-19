@@ -1,9 +1,10 @@
 from PyQt6.QtWidgets import QTextBrowser, QMenu, QFileDialog, QApplication
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QContextMenuEvent, QAction, QClipboard, QPixmap
+from PyQt6.QtPrintSupport import QPrinter
 import matplotlib.pyplot as plt
 import io
-from axaltyx.i18n.i18n_manager import I18nManager
+from axaltyx.i18n import I18nManager
 
 class OutputViewer(QTextBrowser):
     def __init__(self, parent=None):
@@ -36,21 +37,21 @@ class OutputViewer(QTextBrowser):
     def _show_context_menu(self, pos):
         menu = QMenu(self)
         
-        copy_action = QAction(self.i18n.translate('output', 'copy'), self)
+        copy_action = QAction(self.i18n.t('output.copy'), self)
         copy_action.triggered.connect(self._copy_selection)
         menu.addAction(copy_action)
         
         menu.addSeparator()
         
-        export_html_action = QAction(self.i18n.translate('output', 'export_html'), self)
+        export_html_action = QAction(self.i18n.t('output.export_html'), self)
         export_html_action.triggered.connect(self._export_html)
         menu.addAction(export_html_action)
         
-        export_pdf_action = QAction(self.i18n.translate('output', 'export_pdf'), self)
+        export_pdf_action = QAction(self.i18n.t('output.export_pdf'), self)
         export_pdf_action.triggered.connect(self._export_pdf)
         menu.addAction(export_pdf_action)
         
-        export_png_action = QAction(self.i18n.translate('output', 'export_png'), self)
+        export_png_action = QAction(self.i18n.t('output.export_png'), self)
         export_png_action.triggered.connect(self._export_png)
         menu.addAction(export_png_action)
         

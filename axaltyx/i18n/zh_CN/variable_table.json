@@ -1,0 +1,11 @@
+{
+  "name": "变量名",
+  "type": "类型",
+  "label": "标签",
+  "values": "值",
+  "missing": "缺失值",
+  "measurement": "测量",
+  "add_above": "在上方插入变量",
+  "add_below": "在下方插入变量",
+  "delete": "删除变量"
+}
