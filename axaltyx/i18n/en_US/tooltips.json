@@ -1,0 +1,17 @@
+{
+  "new_file": "Create new data file",
+  "open_file": "Open existing data file",
+  "save_file": "Save current file",
+  "save_as": "Save as",
+  "undo": "Undo last operation",
+  "redo": "Redo undone operation",
+  "cut": "Cut selection",
+  "copy": "Copy selection",
+  "paste": "Paste",
+  "clear": "Clear selection",
+  "find": "Find",
+  "replace": "Replace",
+  "run_analysis": "Run analysis",
+  "help": "Help",
+  "variable_selector": "Select variables for analysis"
+}

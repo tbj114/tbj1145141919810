@@ -1,0 +1,13 @@
+{
+  "unknown_error": "未知错误",
+  "file_not_found": "文件未找到: {file}",
+  "invalid_file_format": "无效的文件格式",
+  "permission_denied": "权限不足",
+  "not_enough_data": "数据不足",
+  "invalid_variable": "无效的变量",
+  "calculation_failed": "计算失败: {error}",
+  "analysis_failed": "分析失败: {error}",
+  "chart_generation_failed": "图表生成失败",
+  "memory_error": "内存不足",
+  "disk_full": "磁盘空间不足"
+}

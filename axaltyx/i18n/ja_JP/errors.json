@@ -1,0 +1,13 @@
+{
+  "unknown_error": "不明なエラー",
+  "file_not_found": "ファイルが見つかりません: {file}",
+  "invalid_file_format": "無効なファイル形式",
+  "permission_denied": "権限がありません",
+  "not_enough_data": "データが不十分です",
+  "invalid_variable": "無効な変数",
+  "calculation_failed": "計算に失敗しました: {error}",
+  "analysis_failed": "分析に失敗しました: {error}",
+  "chart_generation_failed": "チャートの生成に失敗しました",
+  "memory_error": "メモリが不足しています",
+  "disk_full": "ディスクがいっぱいです"
+}

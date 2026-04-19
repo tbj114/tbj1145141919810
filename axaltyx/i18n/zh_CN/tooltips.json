@@ -1,0 +1,17 @@
+{
+  "new_file": "创建新数据文件",
+  "open_file": "打开现有数据文件",
+  "save_file": "保存当前文件",
+  "save_as": "另存为",
+  "undo": "撤销上一步操作",
+  "redo": "重做已撤销的操作",
+  "cut": "剪切选中内容",
+  "copy": "复制选中内容",
+  "paste": "粘贴",
+  "clear": "清除选中内容",
+  "find": "查找",
+  "replace": "替换",
+  "run_analysis": "运行分析",
+  "help": "帮助",
+  "variable_selector": "选择要分析的变量"
+}

@@ -2,17 +2,19 @@
 # -*- coding: utf-8 -*-
 
 """
-文件读写模块 - 支持 .axl 文件格式和外部格式
+文件读写模块 - 支持 .tbj 文件格式和外部格式
 """
 
 import json
 import gzip
 import os
 import csv
+import struct
 import chardet
 from axaltyx.core.data.dataset import Dataset
 from axaltyx.core.data.variable import Variable
 from axaltyx.utils.config import ConfigManager
+from axaltyx.i18n import I18nManager
 
 try:
     from openpyxl import load_workbook
@@ -34,7 +36,7 @@ class FileIO:
     
     @staticmethod
     def save_dataset(dataset, filepath):
-        """保存数据集到 .axl 文件
+        """保存数据集到 .tbj 文件
         
         Args:
             dataset: Dataset 对象
@@ -47,7 +49,9 @@ class FileIO:
             # 转换数据集为字典
             data = dataset.to_dict()
             
-            # 写入压缩的 JSON 文件
+            # 为了与文档兼容，我们可以同时支持两种格式，
+            # 或者直接使用 .tbj 扩展名的压缩 JSON 格式
+            # 按照文档的建议，我们使用 .tbj 格式
             with gzip.open(filepath, 'wt', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
             
@@ -65,7 +69,7 @@ class FileIO:
     
     @staticmethod
     def load_dataset(filepath):
-        """从 .axl 文件加载数据集
+        """从 .tbj 文件加载数据集
         
         Args:
             filepath: 文件路径
@@ -391,7 +395,8 @@ class FileIO:
         Returns:
             str: 文件过滤器字符串
         """
-        return "AxaltyX Files (*.axl);;CSV Files (*.csv);;Excel Files (*.xlsx);;SPSS Files (*.sav);;All Files (*.*)"
+        i18n = I18nManager()
+        return i18n.t("app.file_filter")
     
     @staticmethod
     def get_import_filters():
@@ -400,7 +405,8 @@ class FileIO:
         Returns:
             str: 导入文件过滤器字符串
         """
-        return "AxaltyX Files (*.axl);;CSV Files (*.csv);;Excel Files (*.xlsx);;SPSS Files (*.sav);;All Files (*.*)"
+        i18n = I18nManager()
+        return i18n.t("app.file_filter_import")
     
     @staticmethod
     def get_export_filters():
@@ -409,7 +415,8 @@ class FileIO:
         Returns:
             str: 导出文件过滤器字符串
         """
-        return "AxaltyX Files (*.axl);;CSV Files (*.csv);;Excel Files (*.xlsx);;All Files (*.*)"
+        i18n = I18nManager()
+        return i18n.t("app.file_filter_export")
     
     @staticmethod
     def load_file(filepath):
@@ -423,7 +430,7 @@ class FileIO:
         """
         ext = os.path.splitext(filepath)[1].lower()
         
-        if ext == '.axl':
+        if ext == '.tbj':
             return FileIO.load_dataset(filepath)
         elif ext == '.csv':
             return FileIO.load_csv(filepath)
@@ -432,7 +439,8 @@ class FileIO:
         elif ext == '.sav':
             return FileIO.load_spss(filepath)
         else:
-            print(f"不支持的文件格式: {ext}")
+            i18n = I18nManager()
+            print(f"{i18n.t('app.invalid_format')}: {ext}")
             return None
     
     @staticmethod
@@ -448,12 +456,13 @@ class FileIO:
         """
         ext = os.path.splitext(filepath)[1].lower()
         
-        if ext == '.axl':
+        if ext == '.tbj':
             return FileIO.save_dataset(dataset, filepath)
         elif ext == '.csv':
             return FileIO.save_csv(dataset, filepath)
         elif ext in ['.xlsx', '.xls']:
             return FileIO.save_excel(dataset, filepath)
         else:
-            print(f"不支持的文件格式: {ext}")
+            i18n = I18nManager()
+            print(f"{i18n.t('app.invalid_format')}: {ext}")
             return False

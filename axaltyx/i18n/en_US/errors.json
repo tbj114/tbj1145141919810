@@ -1,0 +1,13 @@
+{
+  "unknown_error": "Unknown error",
+  "file_not_found": "File not found: {file}",
+  "invalid_file_format": "Invalid file format",
+  "permission_denied": "Permission denied",
+  "not_enough_data": "Insufficient data",
+  "invalid_variable": "Invalid variable",
+  "calculation_failed": "Calculation failed: {error}",
+  "analysis_failed": "Analysis failed: {error}",
+  "chart_generation_failed": "Chart generation failed",
+  "memory_error": "Insufficient memory",
+  "disk_full": "Disk full"
+}

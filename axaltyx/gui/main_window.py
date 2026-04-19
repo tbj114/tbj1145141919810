@@ -47,7 +47,7 @@ class MainWindow(FramelessWindow):
 
         self.tab_widget = QTabWidget()
         self.tab_widget.setTabsClosable(True)
-        self.tab_widget.addTab(QLabel("欢迎使用 AxaltyX"), "首页")
+        self.tab_widget.addTab(QLabel(self.i18n.t("app.welcome")), "首页")
         main_splitter.addWidget(self.tab_widget)
 
         main_splitter.setStretchFactor(0, 0)
@@ -101,30 +101,30 @@ class MainWindow(FramelessWindow):
         """新建文件"""
         if self.data_editor_tab is None:
             self.data_editor_tab = DataEditorTab()
-            self.tab_widget.addTab(self.data_editor_tab, "数据编辑器")
+            self.tab_widget.addTab(self.data_editor_tab, self.i18n.t("app.data_editor"))
         self.tab_widget.setCurrentWidget(self.data_editor_tab)
-        self.status_bar.show_message("新建文件")
+        self.status_bar.show_message(self.i18n.t("app.new_file_created"))
 
     def _on_open_file(self):
         """打开文件"""
         file_path, _ = QFileDialog.getOpenFileName(
             self,
-            "打开文件",
+            self.i18n.t("app.import_title"),
             "",
-            "AxaltyX文件 (*.axo);;所有文件 (*.*)"
+            self.i18n.t("app.file_filter_import")
         )
         if file_path:
             self.current_file = file_path
             if self.data_editor_tab is None:
                 self.data_editor_tab = DataEditorTab()
-                self.tab_widget.addTab(self.data_editor_tab, "数据编辑器")
+                self.tab_widget.addTab(self.data_editor_tab, self.i18n.t("app.data_editor"))
             self.tab_widget.setCurrentWidget(self.data_editor_tab)
-            self.status_bar.show_message(f"打开文件: {file_path}")
+            self.status_bar.show_message(self.i18n.t("app.file_opened", file=file_path))
 
     def _on_save_file(self):
         """保存文件"""
         if self.current_file:
-            self.status_bar.show_message(f"保存文件: {self.current_file}")
+            self.status_bar.show_message(self.i18n.t("app.file_saved", file=self.current_file))
         else:
             self._on_save_as()
 
@@ -132,21 +132,21 @@ class MainWindow(FramelessWindow):
         """另存为"""
         file_path, _ = QFileDialog.getSaveFileName(
             self,
-            "另存为",
+            self.i18n.t("app.export_title"),
             "",
-            "AxaltyX文件 (*.axo);;所有文件 (*.*)"
+            self.i18n.t("app.file_filter_export")
         )
         if file_path:
             self.current_file = file_path
-            self.status_bar.show_message(f"保存文件: {file_path}")
+            self.status_bar.show_message(self.i18n.t("app.file_saved", file=file_path))
 
     def _on_close_file(self):
         """关闭文件"""
         if self.current_file:
             reply = QMessageBox.question(
                 self,
-                "关闭文件",
-                "是否保存当前文件？",
+                self.i18n.t("app.confirm_close"),
+                self.i18n.t("app.close_file_prompt"),
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel
             )
             if reply == QMessageBox.StandardButton.Yes:
@@ -154,67 +154,67 @@ class MainWindow(FramelessWindow):
                 self.current_file = None
             elif reply == QMessageBox.StandardButton.No:
                 self.current_file = None
-            self.status_bar.show_message("文件已关闭")
+            self.status_bar.show_message(self.i18n.t("app.file_closed"))
 
     # ==================== 编辑菜单方法 ====================
     def _on_undo(self):
         """撤销"""
         self.tool_bar.undo()
-        self.status_bar.show_message("撤销")
+        self.status_bar.show_message(self.i18n.t("app.undo_performed"))
 
     def _on_redo(self):
         """重做"""
         self.tool_bar.redo()
-        self.status_bar.show_message("重做")
+        self.status_bar.show_message(self.i18n.t("app.redo_performed"))
 
     def _on_cut(self):
         """剪切"""
-        self.status_bar.show_message("剪切")
+        self.status_bar.show_message(self.i18n.t("app.cut_performed"))
 
     def _on_find(self):
         """查找"""
-        self.status_bar.show_message("查找功能")
+        self.status_bar.show_message(self.i18n.t("app.find_function"))
 
     def _on_replace(self):
         """替换"""
-        self.status_bar.show_message("替换功能")
+        self.status_bar.show_message(self.i18n.t("app.replace_function"))
 
     # ==================== 数据菜单方法 ====================
     def _on_define_variables(self):
         """定义变量"""
         if self.variable_view_tab is None:
             self.variable_view_tab = VariableViewTab()
-            self.tab_widget.addTab(self.variable_view_tab, "变量视图")
+            self.tab_widget.addTab(self.variable_view_tab, self.i18n.t("app.variable_view"))
         self.tab_widget.setCurrentWidget(self.variable_view_tab)
-        self.status_bar.show_message("定义变量")
+        self.status_bar.show_message(self.i18n.t("app.define_variables"))
 
     def _on_sort_cases(self):
         """排序"""
-        self.status_bar.show_message("排序个案")
+        self.status_bar.show_message(self.i18n.t("app.sort_cases"))
 
     def _on_select_cases(self):
         """选择个案"""
-        self.status_bar.show_message("选择个案")
+        self.status_bar.show_message(self.i18n.t("app.select_cases"))
 
     def _on_weight_cases(self):
         """加权"""
-        self.status_bar.show_message("加权个案")
+        self.status_bar.show_message(self.i18n.t("app.weight_cases"))
 
     def _on_transpose(self):
         """转置"""
-        self.status_bar.show_message("转置数据")
+        self.status_bar.show_message(self.i18n.t("app.transpose_data"))
 
     def _on_restructure(self):
         """重构"""
-        self.status_bar.show_message("重构数据")
+        self.status_bar.show_message(self.i18n.t("app.restructure_data"))
 
     def _on_merge_files(self):
         """合并"""
-        self.status_bar.show_message("合并文件")
+        self.status_bar.show_message(self.i18n.t("app.merge_files"))
 
     def _on_split_file(self):
         """拆分"""
-        self.status_bar.show_message("拆分文件")
+        self.status_bar.show_message(self.i18n.t("app.split_file"))
 
     # ==================== 视图菜单方法 ====================
     def _on_toggle_panel(self, panel_name):
@@ -222,27 +222,27 @@ class MainWindow(FramelessWindow):
         if panel_name == "data_editor":
             if self.data_editor_tab is None:
                 self.data_editor_tab = DataEditorTab()
-                self.tab_widget.addTab(self.data_editor_tab, "数据编辑器")
+                self.tab_widget.addTab(self.data_editor_tab, self.i18n.t("app.data_editor"))
             self.tab_widget.setCurrentWidget(self.data_editor_tab)
-            self.status_bar.show_message("数据编辑器")
+            self.status_bar.show_message(self.i18n.t("app.data_editor"))
         elif panel_name == "variable_view":
             if self.variable_view_tab is None:
                 self.variable_view_tab = VariableViewTab()
-                self.tab_widget.addTab(self.variable_view_tab, "变量视图")
+                self.tab_widget.addTab(self.variable_view_tab, self.i18n.t("app.variable_view"))
             self.tab_widget.setCurrentWidget(self.variable_view_tab)
-            self.status_bar.show_message("变量视图")
+            self.status_bar.show_message(self.i18n.t("app.variable_view"))
         elif panel_name == "output":
             if self.output_tab is None:
                 self.output_tab = OutputTab()
-                self.tab_widget.addTab(self.output_tab, "输出")
+                self.tab_widget.addTab(self.output_tab, self.i18n.t("app.output"))
             self.tab_widget.setCurrentWidget(self.output_tab)
-            self.status_bar.show_message("输出面板")
+            self.status_bar.show_message(self.i18n.t("app.output"))
         elif panel_name == "syntax":
             if self.syntax_tab is None:
                 self.syntax_tab = SyntaxTab()
-                self.tab_widget.addTab(self.syntax_tab, "语法")
+                self.tab_widget.addTab(self.syntax_tab, self.i18n.t("app.syntax"))
             self.tab_widget.setCurrentWidget(self.syntax_tab)
-            self.status_bar.show_message("语法面板")
+            self.status_bar.show_message(self.i18n.t("app.syntax"))
 
     # ==================== 帮助菜单方法 ====================
     def _on_show_about(self):
