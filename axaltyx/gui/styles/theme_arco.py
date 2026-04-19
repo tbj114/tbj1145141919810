@@ -5,6 +5,8 @@
 Arco Design 主题常量定义
 """
 
+import os
+
 # 主色调
 COLOR_PRIMARY = "#165DFF"
 COLOR_PRIMARY_HOVER = "#4080FF"
@@ -77,19 +79,19 @@ BUTTON_HEIGHT_LARGE = "36px"
 
 def apply_theme(widget):
     """将 Arco Design 主题应用到控件"""
-    from PyQt6.QtCore import QFile
     from PyQt6.QtWidgets import QApplication
     
-    # 加载样式文件
-    global_style = QFile(":/styles/global.qss")
-    widgets_style = QFile(":/styles/widgets.qss")
+    styles_dir = os.path.dirname(os.path.abspath(__file__))
+    global_style_path = os.path.join(styles_dir, "global.qss")
+    widgets_style_path = os.path.join(styles_dir, "widgets.qss")
     
-    global_style.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
-    widgets_style.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
+    stylesheet = ""
+    if os.path.exists(global_style_path):
+        with open(global_style_path, "r", encoding="utf-8") as f:
+            stylesheet += f.read()
     
-    stylesheet = global_style.readAll().data().decode() + widgets_style.readAll().data().decode()
+    if os.path.exists(widgets_style_path):
+        with open(widgets_style_path, "r", encoding="utf-8") as f:
+            stylesheet += f.read()
     
     QApplication.setStyleSheet(stylesheet)
-    
-    global_style.close()
-    widgets_style.close()

@@ -5,6 +5,8 @@
   "ready": "Ready",
   "splash_loading": "Loading...",
   "splash_init": "Initializing...",
+  "splash_load_components": "Loading components...",
+  "splash_init_ui": "Initializing interface...",
   "splash_ready": "Ready",
   "untitled": "Untitled",
   "file_filter": "AxaltyX Files (*.axl);;CSV Files (*.csv);;Excel Files (*.xlsx);;SPSS Files (*.sav);;All Files (*.*)",

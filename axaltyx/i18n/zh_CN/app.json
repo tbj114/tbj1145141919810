@@ -5,6 +5,8 @@
   "ready": "就绪",
   "splash_loading": "正在加载...",
   "splash_init": "正在初始化...",
+  "splash_load_components": "加载组件...",
+  "splash_init_ui": "初始化界面...",
   "splash_ready": "准备就绪",
   "untitled": "未命名",
   "file_filter": "AxaltyX 文件 (*.axl);;CSV 文件 (*.csv);;Excel 文件 (*.xlsx);;SPSS 文件 (*.sav);;所有文件 (*.*)",
