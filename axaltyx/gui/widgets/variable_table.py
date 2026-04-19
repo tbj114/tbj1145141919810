@@ -40,6 +40,7 @@ class VariableTable(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.i18n = I18nManager()
+        self.dataset = None
         self._init_ui()
     
     def _init_ui(self):
@@ -316,3 +317,97 @@ class VariableTable(QWidget):
         self.table.setRowCount(0)
         self.table.setRowCount(10)
         self._init_default_data()
+    
+    def set_dataset(self, dataset):
+        """设置数据集"""
+        self.dataset = dataset
+        if not dataset:
+            return
+        
+        # 设置行数
+        self.table.setRowCount(len(dataset.variables))
+        
+        # 初始化每一行
+        for i, var in enumerate(dataset.variables):
+            self._init_row(i)
+            
+            # 设置变量名称
+            name_item = self.table.item(i, 0)
+            if name_item:
+                name_item.setText(var.name)
+            
+            # 设置变量类型
+            type_combo = self.table.cellWidget(i, 1)
+            if type_combo:
+                # 转换为我们的类型名称
+                var_type = var.type
+                type_map = {
+                    'numeric': 'Numeric',
+                    'string': 'String',
+                    'date': 'Date'
+                }
+                type_combo.setCurrentText(type_map.get(var_type, 'Numeric'))
+            
+            # 设置标签
+            label_item = self.table.item(i, 2)
+            if label_item:
+                label_item.setText(var.label)
+            
+            # 设置值标签
+            values_item = self.table.item(i, 3)
+            if values_item:
+                values_str = ', '.join([f'{k}: {v}' for k, v in var.value_labels.items()])
+                values_item.setText(values_str)
+            
+            # 设置测量级别
+            measure_combo = self.table.cellWidget(i, 5)
+            if measure_combo:
+                measure_map = {
+                    'scale': 'Scale',
+                    'ordinal': 'Ordinal',
+                    'nominal': 'Nominal'
+                }
+                measure_combo.setCurrentText(measure_map.get(var.measure, 'Scale'))
+    
+    def update_dataset_from_table(self):
+        """将表格数据更新回数据集"""
+        if not self.dataset:
+            return
+        
+        for i in range(self.table.rowCount()):
+            if i >= len(self.dataset.variables):
+                continue
+            
+            var = self.dataset.variables[i]
+            
+            # 更新名称
+            name_item = self.table.item(i, 0)
+            if name_item:
+                var.name = name_item.text()
+            
+            # 更新类型
+            type_combo = self.table.cellWidget(i, 1)
+            if type_combo:
+                type_map = {
+                    'Numeric': 'numeric',
+                    'String': 'string',
+                    'Date': 'date',
+                    'Boolean': 'numeric',
+                    'Factor': 'string'
+                }
+                var.type = type_map.get(type_combo.currentText(), 'numeric')
+            
+            # 更新标签
+            label_item = self.table.item(i, 2)
+            if label_item:
+                var.label = label_item.text()
+            
+            # 更新测量级别
+            measure_combo = self.table.cellWidget(i, 5)
+            if measure_combo:
+                measure_map = {
+                    'Scale': 'scale',
+                    'Ordinal': 'ordinal',
+                    'Nominal': 'nominal'
+                }
+                var.measure = measure_map.get(measure_combo.currentText(), 'scale')

@@ -24,6 +24,7 @@ class DataTable(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.i18n = I18nManager()
+        self.dataset = None
         self._init_ui()
     
     def _init_ui(self):
@@ -293,3 +294,43 @@ class DataTable(QWidget):
         self.table.setRowCount(0)
         self.table.setColumnCount(10)
         self._update_column_headers()
+    
+    def set_dataset(self, dataset):
+        """设置数据集"""
+        self.dataset = dataset
+        if not dataset:
+            return
+        
+        # 设置行数和列数
+        self.table.setRowCount(dataset.rows)
+        self.table.setColumnCount(dataset.cols)
+        
+        # 设置列标题
+        headers = []
+        for i in range(dataset.cols):
+            if i < len(dataset.variables):
+                headers.append(dataset.variables[i].name)
+            else:
+                headers.append(f'V{i+1}')
+        self.table.setHorizontalHeaderLabels(headers)
+        
+        # 填充数据
+        for i in range(dataset.rows):
+            for j in range(dataset.cols):
+                value = dataset.get_value(i, j)
+                if value is not None:
+                    item = QTableWidgetItem(str(value))
+                    self.table.setItem(i, j, item)
+                else:
+                    self.table.setItem(i, j, QTableWidgetItem(''))
+    
+    def update_dataset_from_table(self):
+        """将表格数据更新回数据集"""
+        if not self.dataset:
+            return
+        
+        for i in range(self.table.rowCount()):
+            for j in range(self.table.columnCount()):
+                item = self.table.item(i, j)
+                value = item.text() if item and item.text() != '' else None
+                self.dataset.set_value(i, j, value)

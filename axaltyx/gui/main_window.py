@@ -161,10 +161,20 @@ class MainWindow(FramelessWindow):
             else:
                 QMessageBox.critical(self, "错误", "无法加载文件")
 
+    def _sync_data_from_tables(self):
+        """从表格同步数据到数据集"""
+        if self.dataset is None:
+            return
+        if self.data_editor_tab:
+            self.data_editor_tab.data_table.update_dataset_from_table()
+        if self.variable_view_tab:
+            self.variable_view_tab.variable_table.update_dataset_from_table()
+
     def _on_save_file(self):
         """保存文件"""
         if self.dataset is None:
             return
+        self._sync_data_from_tables()
         if self.current_file:
             if FileIO.save_file(self.dataset, self.current_file):
                 self.status_bar.show_message(self.i18n.t("app.file_saved", file=self.current_file))
@@ -175,6 +185,7 @@ class MainWindow(FramelessWindow):
         """另存为"""
         if self.dataset is None:
             return
+        self._sync_data_from_tables()
         file_path, _ = QFileDialog.getSaveFileName(
             self,
             self.i18n.t("app.export_title"),
