@@ -1,0 +1,213 @@
+{
+{
+  "app": {
+    "name": "AxaltyX",
+    "title{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit":{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graph{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graphs",
+    "tools": "Tools",
+    "help": "Help"
+  },
+  "file": {
+    "new": "New",
+{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graphs",
+    "tools": "Tools",
+    "help": "Help"
+  },
+  "file": {
+    "new": "New",
+    "open": "Open",
+    "save": "Save",
+    "{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graphs",
+    "tools": "Tools",
+    "help": "Help"
+  },
+  "file": {
+    "new": "New",
+    "open": "Open",
+    "save": "Save",
+    "save_as": "Save As",
+    "import": "Import",
+    "{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graphs",
+    "tools": "Tools",
+    "help": "Help"
+  },
+  "file": {
+    "new": "New",
+    "open": "Open",
+    "save": "Save",
+    "save_as": "Save As",
+    "import": "Import",
+    "export": "Export",
+    "print": "Print",
+    "close":{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graphs",
+    "tools": "Tools",
+    "help": "Help"
+  },
+  "file": {
+    "new": "New",
+    "open": "Open",
+    "save": "Save",
+    "save_as": "Save As",
+    "import": "Import",
+    "export": "Export",
+    "print": "Print",
+    "close": "Close"
+  },
+  "edit": {
+    "undo": "Und{
+  "app": {
+    "name": "AxaltyX",
+    "title": "AxaltyX - Professional Statistical Software",
+    "login": "Login",
+    "logout": "Logout",
+    "about": "About",
+    "exit": "Exit"
+  },
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "analysis": "Analysis",
+    "graphs": "Graphs",
+    "tools": "Tools",
+    "help": "Help"
+  },
+  "file": {
+    "new": "New",
+    "open": "Open",
+    "save": "Save",
+    "save_as": "Save As",
+    "import": "Import",
+    "export": "Export",
+    "print": "Print",
+    "close": "Close"
+  },
+  "edit": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "cut": "Cut
